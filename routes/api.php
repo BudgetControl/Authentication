@@ -17,3 +17,4 @@ $app->get('/logout', \Budgetcontrol\Authentication\Controller\AuthController::cl
 $app->get('/user-info/by-email/{email}', \Budgetcontrol\Authentication\Controller\AuthController::class . ':userInfoByEmail');
 
 $app->get('/monitor', \Budgetcontrol\Authentication\Controller\Controller::class . ':monitor');
+$app->delete('/{uuid}', \Budgetcontrol\Authentication\Controller\UserController::class . ':delete');
