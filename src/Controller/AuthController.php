@@ -132,13 +132,16 @@ class AuthController
             return response(['error' => $e->getMessage()], 400);
         }
 
-        $email = $request->getParsedBody()['email'];
         $newPassword = $request->getParsedBody()['password'];
         $token = $args['token'];
 
         if (!Cache::has($token)) {
             throw new AuthException('Invalid token', 401);
         }
+
+        // retrive email from cache
+        $tokenInCache = Cache::get($token);
+        $email = $tokenInCache->email;
 
         $user = User::where('email', $this->encrypt($email))->first();
         if ($user) {
