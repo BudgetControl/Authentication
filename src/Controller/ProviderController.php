@@ -68,8 +68,7 @@ class ProviderController {
 
         } catch (\Throwable $e) {
 
-            // user is not authenticated should firt sign up
-            
+            Log::critical($e->getMessage());
 
             return response([
                 'success' => false,
@@ -138,6 +137,7 @@ class ProviderController {
         $user->email = $userEmail;
         $user->name = $userName;
         $user->uuid = \Ramsey\Uuid\Uuid::uuid4()->toString();
+        $user->password = rand(100000, 999999);
         $user->sub = $sub;
         $user->save();
 
