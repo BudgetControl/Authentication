@@ -1,18 +1,15 @@
 <?php
 namespace Budgetcontrol\Authentication\Controller;
 
-use GuzzleHttp\Client;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
 use Budgetcontrol\Authentication\Facade\Cache;
 use Budgetcontrol\Authentication\Traits\Crypt;
-use League\Container\Exception\NotFoundException;
 use Budgetcontrol\Authentication\Domain\Model\User;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
-use Budgetcontrol\Authentication\Domain\Entity\Provider;
 use Budgetcontrol\Authentication\Facade\AwsCognitoClient;
-use malirobot\AwsCognito\Entity\Provider as EntityProvider;
+use Budgetcontrol\Connector\Factory\Workspace;
 
 class ProviderController {
 
@@ -70,6 +67,9 @@ class ProviderController {
             $authResponse = $this->authenticate($request->getQueryParams()['code'],$provider);
 
         } catch (\Throwable $e) {
+
+            Log::critical($e->getMessage());
+
             return response([
                 'success' => false,
                 'message' => "Authentication failed"
@@ -101,23 +101,17 @@ class ProviderController {
         $userEmail = $content['email'];
         $user = User::where('email', $this->encrypt($userEmail))->with('workspaces')->first();
         $sub = $content['sub'];
-
-        if(empty($user)) {
-            throw new NotFoundException("User not found", 404);
-        }
       
         if(!$user) {
-            $user = new User();
-            $user->email = $userEmail;
-            $user->name = $content['name'];
-            $user->uuid = \Ramsey\Uuid\Uuid::uuid4()->toString();
-            $user->sub = $sub;
-            $user->save();
+            $this->signupFromProvider($content['name'], $userEmail, $sub);
         } else {
             // Update user information sub
             $user->sub = $sub;
             $user->save();
         }
+
+        //retrive user workspaces
+        $user = User::where('email', $this->encrypt($userEmail))->with('workspaces')->first();
 
         Cache::put($sub.'refresh_token', $tokens->refresh_token, Carbon::now()->addDays(30));
         Cache::put($sub.'id_token', $tokens->id_token, Carbon::now()->addDays(30));
@@ -126,5 +120,42 @@ class ProviderController {
             'token' => $tokens->access_token,
             'workspaces' => $user->workspaces
         ];
+    }
+
+    /**
+     * Sign up a user from a provider.
+     *
+     * @param string $userName The username of the user.
+     * @param string $userEmail The email address of the user.
+     * @param string $sub The unique identifier of the user from the provider.
+     * @return void
+     */
+    private function signupFromProvider(string $userName, string $userEmail, string $sub): void
+    {
+
+        $user = new User();
+        $user->email = $userEmail;
+        $user->name = $userName;
+        $user->uuid = \Ramsey\Uuid\Uuid::uuid4()->toString();
+        $user->password = rand(100000, 999999);
+        $user->sub = $sub;
+        $user->save();
+
+        $wsPayload = [
+            'name' => "Workspace",
+            'description' => "Default workspace",
+        ];
+
+        /** @var \Budgetcontrol\Connector\Model\Response $connector */
+        $connector = Workspace::init('POST', $wsPayload)->call('/add', $user->id);
+        $workspace = $connector->getBody()['workspace'];
+        
+        Workspace::init('PATCH',[],[])->call('/'.$workspace['uuid'].'/activate', $user->id);
+        
+        if ($connector->getStatusCode() != 201) {
+            Log::critical("Error creating workspace");
+            throw new \Exception("Error creating workspace");
+        }
+
     }
 }
