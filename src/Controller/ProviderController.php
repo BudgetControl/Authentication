@@ -104,6 +104,7 @@ class ProviderController {
       
         if(!$user) {
             $this->signupFromProvider($content['name'], $userEmail, $sub);
+            $user->email_verified_at = date('Y-m-d H:i:s');
         } else {
             // Update user information sub
             $user->sub = $sub;
