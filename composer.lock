@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b8b8708ef26f932397b8ace8c9fb1a4f",
+    "content-hash": "908e106143e15759e457a125b865a318",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -266,20 +266,20 @@
         },
         {
             "name": "budgetcontrol/mailer",
-            "version": "dev-main",
+            "version": "v0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/BudgetControl/MailerService.git",
-                "reference": "6fbcdf1e4632226a0996f5f0d271a12b90e17842"
+                "reference": "1988a53c3219aa4c0f39d80a9ec25f54052982e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/BudgetControl/MailerService/zipball/6fbcdf1e4632226a0996f5f0d271a12b90e17842",
-                "reference": "6fbcdf1e4632226a0996f5f0d271a12b90e17842",
+                "url": "https://api.github.com/repos/BudgetControl/MailerService/zipball/1988a53c3219aa4c0f39d80a9ec25f54052982e6",
+                "reference": "1988a53c3219aa4c0f39d80a9ec25f54052982e6",
                 "shasum": ""
             },
             "require": {
-                "mlabfactory/libs-mailer": "^1.1",
+                "mlabfactory/libs-mailer": "^v1.1",
                 "php": "^8.1",
                 "twig/twig": "^3.12"
             },
@@ -289,7 +289,6 @@
                 "nikic/php-parser": "^5.0",
                 "phpunit/phpunit": "^10.0"
             },
-            "default-branch": true,
             "type": "package",
             "autoload": {
                 "psr-4": {
@@ -307,10 +306,10 @@
             ],
             "description": "The MailerService library provides functionality for sending emails. It is used by the BC (Business Communication) module of the application.",
             "support": {
-                "source": "https://github.com/BudgetControl/MailerService/tree/main",
+                "source": "https://github.com/BudgetControl/MailerService/tree/v0.1",
                 "issues": "https://github.com/BudgetControl/MailerService/issues"
             },
-            "time": "2024-09-06T08:29:00+00:00"
+            "time": "2024-09-06T10:33:08+00:00"
         },
         {
             "name": "cakephp/chronos",
@@ -9557,10 +9556,8 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "dev",
-    "stability-flags": {
-        "budgetcontrol/mailer": 20
-    },
+    "minimum-stability": "stable",
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
