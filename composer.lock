@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cf2a46f7bf46e6dd3b19bc6c9e9e2046",
+    "content-hash": "b8b8708ef26f932397b8ace8c9fb1a4f",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -2556,16 +2556,16 @@
         },
         {
             "name": "malirobot/aws-cognito",
-            "version": "v1.0",
+            "version": "v1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/MaliRobot/aws-cognito.git",
-                "reference": "2b26c5e8e50014a5e74801df8ca13c0614d6964a"
+                "reference": "f1783444ea95e998172ec1a60103916d62ee0c38"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/MaliRobot/aws-cognito/zipball/2b26c5e8e50014a5e74801df8ca13c0614d6964a",
-                "reference": "2b26c5e8e50014a5e74801df8ca13c0614d6964a",
+                "url": "https://api.github.com/repos/MaliRobot/aws-cognito/zipball/f1783444ea95e998172ec1a60103916d62ee0c38",
+                "reference": "f1783444ea95e998172ec1a60103916d62ee0c38",
                 "shasum": ""
             },
             "require": {
@@ -2591,7 +2591,8 @@
                 },
                 {
                     "name": "Marco De Felice",
-                    "email": "marco.defelice@mlabfactory.it"
+                    "email": "marco.defelice890@gmail.com",
+                    "homepage": "https://www.mlabfactory.it"
                 }
             ],
             "description": "A PHP client for AWS Cognito user pools, version of pmill/aws-cognito with added methods and some changes.",
@@ -2604,9 +2605,9 @@
                 "php"
             ],
             "support": {
-                "source": "https://github.com/MaliRobot/aws-cognito/tree/v1.0"
+                "source": "https://github.com/MaliRobot/aws-cognito/tree/v1.0.2"
             },
-            "time": "2024-06-12T08:28:53+00:00"
+            "time": "2024-09-06T15:15:11+00:00"
         },
         {
             "name": "mlabfactory/libs-mailer",
