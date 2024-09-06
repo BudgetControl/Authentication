@@ -1,47 +1,48 @@
 <?php
+
 namespace Budgetcontrol\Authentication\Service;
 
-use Budgetcontrol\SdkMailer\Domain\Transport\ArubaSmtp;
+use Budgetcontrol\Authentication\Exception\AuthException;
 use MLAB\SdkMailer\Service\EmailService;
-use Symfony\Component\Mailer\Transport\Dsn;
 use MLAB\SdkMailer\View\AuthMail;
+use Budgetcontrol\Authentication\Facade\Mail as ClientMail;
+use BudgetcontrolLibs\Mailer\View\RecoveryPasswordView;
+use BudgetcontrolLibs\Mailer\View\SignUpView;
+use Illuminate\Support\Facades\Log;
 
-class MailService {
+class MailService
+{
 
-    private EmailService $emailService;
-
-    public function __construct()
+    public static function send_signUpMail(string $to, string $name, string $token)
     {
-        $dsn = new Dsn(ENV('MAIL_DRIVER','mailhog'), env('MAIL_HOST'), env('MAIL_USER'), env('MAIL_PASSWORD'));
-        $this->emailService = new EmailService($dsn, env('MAIL_FROM_ADDRESS'));
-    }
+        try {
+            $view = new SignUpView();
+            $view->setConfirmLink(env('APP_URL', 'http://localhost') . '/app/auth/confirm/' . $token);
+            $view->setUserName($name);
+            $view->setUserEmail($to);
+    
+            ClientMail::send($to, 'Sign Up Confirmation', $view);
 
-    public function send_signUpMail(string $to, string $name, string $token)
-    {   
-        $view = new AuthMail([
-            'name' => $name,
-            'confirm_link' =>  env('APP_URL', 'http://localhost') . '/app/auth/confirm/' . $token,
-        ]);
-        $view->sign_upView();
-
-        $this->emailService->sendEmail(
-            $to,
-            'Sign Up Confirmation',
-            $view
-        );
+        } catch (\Throwable $e) {
+            Log::critical('Could not send sign up email', ['exception' => $e]);
+            throw new AuthException('Could not send sign up email', 500, $e);
+        }
     }
 
     public function send_resetPassowrdMail(string $to, string $name, string $token)
     {
-        $view = new AuthMail([
-            'link' =>  env('APP_URL', 'http://localhost') . '/app/auth/reset-password/' . $token,
-        ]);
-        $view->recovery_passwordView();
 
-        $this->emailService->sendEmail(
-            $to,
-            'Reset Password',
-            $view
-        );
+        try {
+            $view = new RecoveryPasswordView();
+            $view->setLink(env('APP_URL', 'http://localhost') . '/app/auth/reset-password/' . $token);
+            $view->setUserName($name);
+            $view->setUserEmail($to);
+
+            ClientMail::send($to, 'Reset Password', $view);
+
+        } catch (\Throwable $e) {
+            Log::critical('Could not send reset password email', ['exception' => $e]);
+            throw new AuthException('Could not send reset password email', 500, $e);
+        }
     }
 }

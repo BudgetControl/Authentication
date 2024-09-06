@@ -14,6 +14,10 @@
         {
             "type": "vcs",
             "url": "https://github.com/MaliRobot/aws-cognito.git"
+        },
+        {
+            "type":"vcs",
+            "url":"git@github.com:BudgetControl/MailerService.git"
         }
     ],
     "require": {
@@ -38,10 +42,10 @@
         "illuminate/cache": "^11.7",
         "illuminate/validation": "^11.3",
         "predis/predis": "2.2.2",
-        "mlabfactory/libs-mailer": "v1.1.4",
         "malirobot/aws-cognito": "v1.0",
         "budgetcontrol/libs-connector": "v1.0",
-        "logtail/monolog-logtail": "^3.1"
+        "logtail/monolog-logtail": "^3.1",
+        "budgetcontrol/mailer": "dev-main"
     },
     "require-dev": {
         "nikic/php-parser": "^5.0",
@@ -62,6 +66,6 @@
             "email": "marco.defelice@mlabfactory.it"
         }
     ],
-    "minimum-stability": "RC",
+    "minimum-stability": "dev",
     "prefer-stable": true
 }
