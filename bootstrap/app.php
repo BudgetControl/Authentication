@@ -73,6 +73,9 @@ require_once __DIR__ . '/../config/aws-cognito.php';
 // Set up the logger
 require_once __DIR__ . '/../config/logger.php';
 
+/** mail configuration */
+require_once __DIR__ . '/../config/mail.php';
+
 // Set up the Facade application
 Facade::setFacadeApplication([
     'log' => $logger,
@@ -80,4 +83,5 @@ Facade::setFacadeApplication([
     'cache' => $cache,
     'validator' => $validator,
     'aws-cognito-client' => $awsCognitoClient,
+    'mail' => $mail
 ]);
