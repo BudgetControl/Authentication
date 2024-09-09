@@ -2,9 +2,9 @@
 namespace Budgetcontrol\Authentication\Domain\Model;
 
 use Budgetcontrol\Authentication\Traits\Crypt;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
-class User extends Model
+class User extends \Budgetcontrol\Library\Model\User
 {
     use Crypt;
 
@@ -24,25 +24,36 @@ class User extends Model
         'email_verified_at' => 'datetime',
     ];
 
-    public function setEmailAttribute($value)
+    public function email(): Attribute
     {
-        $this->attributes['email'] = $this->encrypt($value);
+        return Attribute::make(
+            get: fn (string $value) => $this->decrypt($value),
+            set: fn (string $value) => $this->encrypt($value),
+        );
     }
 
-    public function getEmailAttribute($value)
+    public function password(): Attribute
     {
-        return $this->decrypt($value);
+        return Attribute::make(
+            get: fn (string $value) => $this->decrypt($value),
+            set: fn (string $value) => $this->encrypt($value),
+        );
     }
 
-    public function setPasswordAttribute($value)
+    public function name(): Attribute
     {
-        $this->attributes['password'] = $this->encrypt($value);
+        return Attribute::make(
+            get: fn (string $value) => $this->decrypt($value),
+            set: fn (string $value) => $this->encrypt($value),
+        );
     }
 
-    public function getPasswordAttribute($value)
+    public function sub(): Attribute
     {
-        return $this->decrypt($value);
-
+        return Attribute::make(
+            get: fn (?string $value) => $this->decrypt($value),
+            set: fn (?string $value) => is_null($value) ? null : $this->encrypt($value),
+        );
     }
     
     public function workspaces()
