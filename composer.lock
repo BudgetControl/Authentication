@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2fce925b59b71f8c600ee1aa2b32521b",
+    "content-hash": "28d1420c2beb7c3046a42fad92ec31d5",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -347,6 +347,79 @@
                 "issues": "https://github.com/BudgetControl/MailerService/issues"
             },
             "time": "2024-09-06T10:33:08+00:00"
+        },
+        {
+            "name": "budgetcontrol/schema-registry-service",
+            "version": "v1.0-beta",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/BudgetControl/Schema-Registry-Service.git",
+                "reference": "01466280c3f20acec2167bee44562285e8e93751"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/BudgetControl/Schema-Registry-Service/zipball/01466280c3f20acec2167bee44562285e8e93751",
+                "reference": "01466280c3f20acec2167bee44562285e8e93751",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Budgetcontrol\\Registry\\": "libs/"
+                }
+            },
+            "authors": [
+                {
+                    "name": "Marco De Felice",
+                    "email": "marco.defelice@mlabfactory.it"
+                }
+            ],
+            "description": "An API Schema Registry is a centralized service that manages and distributes database schema definitions",
+            "support": {
+                "source": "https://github.com/BudgetControl/Schema-Registry-Service/tree/v1.0-beta",
+                "issues": "https://github.com/BudgetControl/Schema-Registry-Service/issues"
+            },
+            "time": "2024-08-06T13:26:32+00:00"
+        },
+        {
+            "name": "budgetcontrol/seeds",
+            "version": "v0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/BudgetControl/SeedsTestLibs.git",
+                "reference": "7e8b654136388ca46a7cf324374c79855b96496a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/BudgetControl/SeedsTestLibs/zipball/7e8b654136388ca46a7cf324374c79855b96496a",
+                "reference": "7e8b654136388ca46a7cf324374c79855b96496a",
+                "shasum": ""
+            },
+            "require-dev": {
+                "budgetcontrol/library": "^1.0",
+                "ramsey/uuid": "^4.7"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Budgetcontrol\\Seeds\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marco De Felice",
+                    "email": "marco.defelice@mlabfactory.it"
+                }
+            ],
+            "description": "Seeds and migrations for unit test",
+            "support": {
+                "source": "https://github.com/BudgetControl/SeedsTestLibs/tree/v0.1",
+                "issues": "https://github.com/BudgetControl/SeedsTestLibs/issues"
+            },
+            "time": "2024-09-09T11:46:59+00:00"
         },
         {
             "name": "cakephp/chronos",
@@ -8014,6 +8087,52 @@
             "time": "2024-01-02T13:46:09+00:00"
         },
         {
+            "name": "mlabfactory/phpunit-self-api-integration",
+            "version": "v1.1.1-beta",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mlabfactory/phpunit-self-api-integration.git",
+                "reference": "b29aa320c657a85dd57ccdb56fa5ab54c88d4367"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mlabfactory/phpunit-self-api-integration/zipball/b29aa320c657a85dd57ccdb56fa5ab54c88d4367",
+                "reference": "b29aa320c657a85dd57ccdb56fa5ab54c88d4367",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^7.8",
+                "php": "^7.4 || ^8.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^11.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "MLAB\\PHPITest\\": "src/"
+                },
+                "files": [
+                    "src/Functions.php"
+                ]
+            },
+            "license": [
+                "GPL-3.0 license"
+            ],
+            "authors": [
+                {
+                    "name": "Marco De Felice",
+                    "email": "marco.defelice@mlabfactory.it"
+                }
+            ],
+            "description": "PHPUnit extension designed for conducting integration tests on self-contained APIs within PHP applications. This extension facilitates seamless testing of API endpoints within the same system, ensuring smooth integration and functionality.",
+            "support": {
+                "source": "https://github.com/mlabfactory/phpunit-self-api-integration/tree/v1.1.1-beta",
+                "issues": "https://github.com/mlabfactory/phpunit-self-api-integration/issues"
+            },
+            "time": "2024-08-30T12:53:55+00:00"
+        },
+        {
             "name": "myclabs/deep-copy",
             "version": "1.11.1",
             "source": {
@@ -9647,7 +9766,10 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "budgetcontrol/schema-registry-service": 10,
+        "mlabfactory/phpunit-self-api-integration": 10
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
