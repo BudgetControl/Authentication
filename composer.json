@@ -18,6 +18,22 @@
         {
             "type":"vcs",
             "url":"git@github.com:BudgetControl/MailerService.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/mlabfactory/phpunit-self-api-integration.git"
+        },
+        {
+            "type":"vcs",
+            "url":"https://github.com/BudgetControl/Library.git"
+        },
+        {
+            "type":"vcs",
+            "url":"git@github.com:BudgetControl/SeedsTestLibs.git"
+        },
+        {
+            "type":"vcs",
+            "url":"git@github.com:BudgetControl/Schema-Registry-Service.git"
         }
     ],
     "require": {
@@ -46,7 +62,8 @@
         "malirobot/aws-cognito": "^v1.0",
         "budgetcontrol/libs-connector": "v1.0",
         "logtail/monolog-logtail": "^3.1",
-        "budgetcontrol/mailer": "^v0.1"
+        "budgetcontrol/mailer": "^v0.1",
+        "budgetcontrol/library": "^1.0"
     },
     "require-dev": {
         "nikic/php-parser": "^5.0",
