@@ -4,7 +4,7 @@ $config = [
         'key' => env('AWS_ACCESS_KEY_ID'),
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
     ],
-    'region' => 'us-east-1',
+    'region' => env('AWS_COGNITO_REGION','us-east-1'),
     'version' => env('AWS_COGNITO_VERSION','latest'),
 
     'app_client_id' => env('AWS_COGNITO_CLIENT_ID'),
