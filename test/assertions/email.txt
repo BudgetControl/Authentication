@@ -1,4 +1,4 @@
-foo@bar.comReset Password<!DOCTYPE html>
+john.doe@example.comSign Up Confirmation<!DOCTYPE html>
 <html lang="it">
 <head>
     <meta charset="UTF-8">
@@ -90,17 +90,36 @@ foo@bar.comReset Password<!DOCTYPE html>
     </div>
 
     
-    <div class="row">
+        <div class="row">
 
-        <p>We received a request to reset your password for your Budget Control account. To set a new password and regain access to your account, please follow the steps below:</p>
-        <p>Click on the following <a href="https://dev.app.budgetcontrol.lan/app/auth/reset-password/a70b090ceccf20c47db86acb1f3124f14a63d57c">link</a> to reset your password:</p>
-        <br/>
-        <a href="https://dev.app.budgetcontrol.lan/app/auth/reset-password/a70b090ceccf20c47db86acb1f3124f14a63d57c" target="_blank"
-                class="recovery-password button">
-                Reset tour password
+            <p>Hello John Doe,</p>
+            <p>Thank you for registering with BudgetControl, your home budget management solution. We're thrilled to
+                have you on board and help you effectively manage your household finances.</p>
+            <br />
+            <p>To complete your registration and activate your email address, please follow the steps below:</p>
+            <p>Click on the following <a href="https://dev.app.budgetcontrol.lan/app/auth/confirm/385b5f6c23dc47fda87b07e38ad115840525efa5">link</a> to activate your email address:</p>
+            <br />
+            <a href="https://dev.app.budgetcontrol.lan/app/auth/confirm/385b5f6c23dc47fda87b07e38ad115840525efa5" target="_blank"
+                class="button">
+                Confirm Email
             </a>
-    </div>
+        </div>
+        <div class="row mt-5">
+            <p>Remember that BudgetControl offers a range of helpful features, including:</p>
+            <ul class="list-disc">
+                <li>Recording your daily expenses and income.</li>
+                <li>Viewing detailed charts and reports to track your finances.</li>
+                <li>Setting personalized savings goals.</li>
+                <li>Receiving reminders for payment deadlines and monthly budgets.</li>
+            </ul>
+            <br />
+            <p>We wish you an exceptional experience with BudgetControl and success in achieving your financial goals.
+            </p>
+        </div>
+        <div class="row">
+            <p class="text-small">This link will work for 10 minuts or until you reset your password.</p>
 
+        </div>
 
         <div>
             <p>Thank you for choosing Budget Control!</p>
@@ -114,7 +133,7 @@ foo@bar.comReset Password<!DOCTYPE html>
 <hr/>
 <footer>
     <div>
-    <p>This email was sent to foo@bar.com. Please don't reply to this email directly.</p>
+    <p>This email was sent to john.doe@example.com. Please don't reply to this email directly.</p>
 <p>For further assistance, please visit our help desk. You got this message because you signed up to receive BudgetControl emails. If you don't want to receive marketing from BudgetControl in the future, you can unsubscribe.</p>
 
 <p class="small-text credits">

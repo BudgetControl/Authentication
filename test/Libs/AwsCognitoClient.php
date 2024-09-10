@@ -2,6 +2,8 @@
 
 namespace Budgetcontrol\Test\Libs;
 
+use malirobot\AwsCognito\Entity\Provider;
+
 class AwsCognitoClient
 {
 
@@ -53,6 +55,37 @@ class AwsCognitoClient
             'AccessToken' => $access_token,
             'RefreshToken' => $refresh_token
         ];
+    }
+
+    public function provider()
+    {
+        return new Provider(
+            'client_id', 'client_secret', 'region', 'user_pool_id'
+        );
+    }
+
+    public function setUserEmailVerified()
+    {
+        return true;
+    }
+
+    public function createUser($username, $password)
+    {
+        return [
+            'User' => [
+                'Username' => 'ec417258-a1ce-4da2-9de4-b33ff49d98cc'
+            ]
+        ];
+    }
+
+    public function authenticateProvider()
+    {
+        return $this->authenticate();
+    }
+
+    public function deleteUser($username)
+    {
+        return true;
     }
 
     public function setBoolClientSecret()

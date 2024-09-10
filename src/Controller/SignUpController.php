@@ -12,7 +12,6 @@ namespace Budgetcontrol\Authentication\Controller;
  * - 4. create default settings
  */
 
-use Budgetcontrol\Authentication\Domain\Model\Token;
 use Budgetcontrol\Authentication\Domain\Model\User;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -21,11 +20,9 @@ use Budgetcontrol\Authentication\Traits\RegistersUsers;
 use Budgetcontrol\Authentication\Facade\AwsCognitoClient;
 use Budgetcontrol\Authentication\Traits\AuthFlow;
 use Budgetcontrol\Authentication\Traits\Crypt;
-use Budgetcontrol\Connector\Factory\Workspace;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
-use stdClass;
+use Budgetcontrol\Authentication\Facade\Workspace;
 
 class SignUpController
 {
@@ -142,7 +139,6 @@ class SignUpController
             return response(["error" => "Ops an error occurred"], 400);
         }
 
-        $password = $user->password;
         try {
             AwsCognitoClient::setUserEmailVerified($user->email);
             AwsCognitoClient::setUserPassword($user->email, $user->password, true);

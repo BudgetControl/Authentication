@@ -3,16 +3,25 @@ declare(strict_types=1);
 
 namespace Budgetcontrol\Test\Libs;
 
-class Cache {
+use Mockery;
+
+class Cache extends Mockery {
 
     private bool $gotException = false;
     private bool $shouldReturnError = false;
 
     public function get(string $key) {
+
+        if($this->shouldReturnError) {
+            return null;
+        }
+
         $stdClass = new \stdClass();
         $stdClass->key = $key;
         $stdClass->value = 'value';
         $stdClass->email = 'foo@bar.com';
+        $stdClass->password = 'password';
+        $stdClass->id = 1;
 
         return $stdClass;
     }

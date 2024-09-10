@@ -21,7 +21,7 @@ class ProviderController {
      * @param Request $request The request object.
      * @param Response $response The response object.
      * @param array $args The arguments passed to the method.
-     * @return void
+     * @return Response The response object.
      */
     public function authenticateProvider(Request $request, Response $response, array $args)
     {
@@ -51,12 +51,12 @@ class ProviderController {
      * @param Request $request The HTTP request object.
      * @param Response $response The HTTP response object.
      * @param array $args The route parameters.
-     * @return void
+     * @return Response The HTTP response object.
      */
     public function providerToken(Request $request, Response $response, array $args)
     {
         $provider = $args['provider'];
-        if(!$request->getQueryParams()['code']) {
+        if(!isset($request->getQueryParams()['code'])) {
             return response([
                 'success' => false,
                 'message' => 'Missing code'

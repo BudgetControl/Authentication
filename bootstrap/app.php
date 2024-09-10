@@ -1,6 +1,7 @@
 <?php
 // Autoload Composer dependencies
 
+use Budgetcontrol\Connector\Factory\Workspace;
 use \Illuminate\Support\Carbon as Date;
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Validation\Validator;
@@ -83,5 +84,6 @@ Facade::setFacadeApplication([
     'cache' => $cache,
     'validator' => $validator,
     'aws-cognito-client' => $awsCognitoClient,
-    'mail' => $mail
+    'mail' => $mail,
+    'workspace' => Workspace::class
 ]);

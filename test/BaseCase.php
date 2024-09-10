@@ -32,7 +32,8 @@ class BaseCase extends \PHPUnit\Framework\TestCase
                 [],
                 []
             ),
-            'mail' => new ClientMail()
+            'mail' => new ClientMail(),
+            'workspace' => new \Budgetcontrol\Test\Libs\Workspace()
         ]);
 
     }
