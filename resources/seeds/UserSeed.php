@@ -15,7 +15,7 @@ class UserSeed extends AbstractSeed
             [
                 "name" => "testuser",
                 "email" => "foo@bar.com",
-                "password" => password_hash("password", PASSWORD_DEFAULT),
+                "password" => "password",
                 "created_at" => $dateTime->format('Y-m-d H:i:s'),
                 "updated_at" => $dateTime->format('Y-m-d H:i:s'),
                 "sub" => "8ef9ce05-0c2b-404b-9530-2056089db8f9",

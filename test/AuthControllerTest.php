@@ -3,7 +3,6 @@
 namespace Budgetcontrol\Test;
 
 use Budgetcontrol\Authentication\Controller\AuthController;
-use Budgetcontrol\Authentication\Domain\Model\User;
 use Budgetcontrol\Authentication\Exception\AuthException;
 use Budgetcontrol\Authentication\Facade\AwsCognitoClient;
 use Budgetcontrol\Authentication\Traits\Crypt;

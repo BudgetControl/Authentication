@@ -13,7 +13,7 @@ class Cache {
         $stdClass->key = $key;
         $stdClass->value = 'value';
         $stdClass->email = 'foo@bar.com';
-        
+
         return $stdClass;
     }
 
@@ -33,6 +33,9 @@ class Cache {
        return true;
     }
     
+    public function forget() {
+        
+    }
 
 
     /**

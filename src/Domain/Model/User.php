@@ -13,7 +13,8 @@ class User extends \Budgetcontrol\Library\Model\User
         'email',
         'password',
         'email_verified_at',
-        'uuid'
+        'uuid',
+        'sub'
     ];
 
     protected $hidden = [

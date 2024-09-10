@@ -1,12 +1,16 @@
 <?php
+
 namespace Budgetcontrol\Test\Libs;
 
-class AwsCognitoClient {
+class AwsCognitoClient
+{
 
     private int $expToken = 3600;
     private bool $gotErrorRefreshToken = false;
+    private bool $gotCognitoException = false;
 
-    public function decodeAccessToken($authToken) {
+    public function decodeAccessToken($authToken)
+    {
         return [
             'sub' => '1234567890',
             'exp' => $this->expToken,
@@ -16,9 +20,10 @@ class AwsCognitoClient {
         ];
     }
 
-    public function refreshAuthentication($username, $refresh_token) {
+    public function refreshAuthentication($username, $refresh_token)
+    {
 
-        if($this->gotErrorRefreshToken) {
+        if ($this->gotErrorRefreshToken) {
             throw new \Exception('Error refreshing token');
         }
 
@@ -28,8 +33,31 @@ class AwsCognitoClient {
         ];
     }
 
-    public function setUserPassword($username, $password) {
+    public function setUserPassword($username, $password)
+    {
         return true;
+    }
+
+    public function  authenticate()
+    {
+        if($this->gotCognitoException) {
+            throw new \Exception('Error refreshing token');
+        }
+
+        $id_token = 'your_id_token';
+        $access_token = 'your_access_token';
+        $refresh_token = 'your_refresh_token';
+
+        return [
+            'IdToken' => $id_token,
+            'AccessToken' => $access_token,
+            'RefreshToken' => $refresh_token
+        ];
+    }
+
+    public function setBoolClientSecret()
+    {
+        return $this;
     }
 
 
@@ -58,6 +86,21 @@ class AwsCognitoClient {
     public function setGotErrorRefreshToken(bool $gotErrorRefreshToken): self
     {
         $this->gotErrorRefreshToken = $gotErrorRefreshToken;
+
+        return $this;
+    }
+
+
+    /**
+     * Set the value of gotCognitoException
+     *
+     * @param bool $gotCognitoException
+     *
+     * @return self
+     */
+    public function setGotCognitoException(bool $gotCognitoException): self
+    {
+        $this->gotCognitoException = $gotCognitoException;
 
         return $this;
     }
