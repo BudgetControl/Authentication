@@ -49,6 +49,12 @@ jobs:
         DB_DATABASE: test_db
         DB_USERNAME: root
         DB_PASSWORD: root
+        AWS_REGION: eu-east-1
+        AWS_ACCESS_KEY_ID: DUMMYID
+        AWS_SECRET_ACCESS_KEY: secret
+        COGNITO_USER_POOL_ID: pool_id
+        COGNITO_USER_POOL_SECRET: pool_secret
+        COGNITO_CLIENT_ID: client_id
       run: |
         vendor/bin/phinx migrate
         vendor/bin/phinx seed:run
