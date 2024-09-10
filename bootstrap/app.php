@@ -1,6 +1,7 @@
 <?php
 // Autoload Composer dependencies
 
+use Budgetcontrol\Connector\Factory\Workspace;
 use \Illuminate\Support\Carbon as Date;
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Validation\Validator;
@@ -23,37 +24,6 @@ $capsule->addConnection($connections['mysql']);
 // Esegui il boot del Capsule
 $capsule->bootEloquent();
 $capsule->setAsGlobal();
-
-//setup log level from env
-switch(env('APP_LOG_LEVEL','debug')) {
-    case 'debug':
-        $logLevel = Level::Debug;
-        break;
-    case 'info':
-        $logLevel = Level::Info;
-        break;
-    case 'notice':
-        $logLevel = Level::Notice;
-        break;
-    case 'warning':
-        $logLevel = Level::Warning;
-        break;
-    case 'error':
-        $logLevel = Level::Error;
-        break;
-    case 'critical':
-        $logLevel = Level::Critical;
-        break;
-    case 'alert':
-        $logLevel = Level::Alert;
-        break;
-    case 'emergency':
-        $logLevel = Level::Emergency;
-        break;
-    default:
-        $logLevel = Level::Debug;
-}
-
 
 // config cahce
 require_once __DIR__ . '/../config/cache.php';
@@ -83,5 +53,6 @@ Facade::setFacadeApplication([
     'cache' => $cache,
     'validator' => $validator,
     'aws-cognito-client' => $awsCognitoClient,
-    'mail' => $mail
+    'mail' => $mail,
+    'workspace' => Workspace::class
 ]);

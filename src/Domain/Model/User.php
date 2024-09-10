@@ -12,6 +12,9 @@ class User extends \Budgetcontrol\Library\Model\User
         'name',
         'email',
         'password',
+        'email_verified_at',
+        'uuid',
+        'sub'
     ];
 
     protected $hidden = [
@@ -51,7 +54,7 @@ class User extends \Budgetcontrol\Library\Model\User
     public function sub(): Attribute
     {
         return Attribute::make(
-            get: fn (?string $value) => $this->decrypt($value),
+            get: fn (?string $value) => is_null($value) ? null : $this->decrypt($value),
             set: fn (?string $value) => is_null($value) ? null : $this->encrypt($value),
         );
     }

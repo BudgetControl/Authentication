@@ -6,5 +6,5 @@ $mail = new \BudgetcontrolLibs\Mailer\Service\ClientMail(
     env('MAIL_DRIVER', 'mailhog'),
     env('MAIL_PASSWORD', ''),
     env('MAIL_USER', ''),
-    env('MAIL_FROM_ADDRESS')
+    env('MAIL_FROM_ADDRESS', '')
 );

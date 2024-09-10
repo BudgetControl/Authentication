@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2fce925b59b71f8c600ee1aa2b32521b",
+    "content-hash": "5d6b0d5972f4eda30538c86ecad7af91",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -347,6 +347,79 @@
                 "issues": "https://github.com/BudgetControl/MailerService/issues"
             },
             "time": "2024-09-06T10:33:08+00:00"
+        },
+        {
+            "name": "budgetcontrol/schema-registry-service",
+            "version": "v1.0-beta",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/BudgetControl/Schema-Registry-Service.git",
+                "reference": "01466280c3f20acec2167bee44562285e8e93751"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/BudgetControl/Schema-Registry-Service/zipball/01466280c3f20acec2167bee44562285e8e93751",
+                "reference": "01466280c3f20acec2167bee44562285e8e93751",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Budgetcontrol\\Registry\\": "libs/"
+                }
+            },
+            "authors": [
+                {
+                    "name": "Marco De Felice",
+                    "email": "marco.defelice@mlabfactory.it"
+                }
+            ],
+            "description": "An API Schema Registry is a centralized service that manages and distributes database schema definitions",
+            "support": {
+                "source": "https://github.com/BudgetControl/Schema-Registry-Service/tree/v1.0-beta",
+                "issues": "https://github.com/BudgetControl/Schema-Registry-Service/issues"
+            },
+            "time": "2024-08-06T13:26:32+00:00"
+        },
+        {
+            "name": "budgetcontrol/seeds",
+            "version": "v0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/BudgetControl/SeedsTestLibs.git",
+                "reference": "7e8b654136388ca46a7cf324374c79855b96496a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/BudgetControl/SeedsTestLibs/zipball/7e8b654136388ca46a7cf324374c79855b96496a",
+                "reference": "7e8b654136388ca46a7cf324374c79855b96496a",
+                "shasum": ""
+            },
+            "require-dev": {
+                "budgetcontrol/library": "^1.0",
+                "ramsey/uuid": "^4.7"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Budgetcontrol\\Seeds\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marco De Felice",
+                    "email": "marco.defelice@mlabfactory.it"
+                }
+            ],
+            "description": "Seeds and migrations for unit test",
+            "support": {
+                "source": "https://github.com/BudgetControl/SeedsTestLibs/tree/v0.1",
+                "issues": "https://github.com/BudgetControl/SeedsTestLibs/issues"
+            },
+            "time": "2024-09-09T11:46:59+00:00"
         },
         {
             "name": "cakephp/chronos",
@@ -8014,6 +8087,186 @@
             "time": "2024-01-02T13:46:09+00:00"
         },
         {
+            "name": "hamcrest/hamcrest-php",
+            "version": "v2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hamcrest/hamcrest-php.git",
+                "reference": "8c3d0a3f6af734494ad8f6fbbee0ba92422859f3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hamcrest/hamcrest-php/zipball/8c3d0a3f6af734494ad8f6fbbee0ba92422859f3",
+                "reference": "8c3d0a3f6af734494ad8f6fbbee0ba92422859f3",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.3|^7.0|^8.0"
+            },
+            "replace": {
+                "cordoval/hamcrest-php": "*",
+                "davedevelopment/hamcrest-php": "*",
+                "kodova/hamcrest-php": "*"
+            },
+            "require-dev": {
+                "phpunit/php-file-iterator": "^1.4 || ^2.0",
+                "phpunit/phpunit": "^4.8.36 || ^5.7 || ^6.5 || ^7.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.1-dev"
+                }
+            },
+            "autoload": {
+                "classmap": [
+                    "hamcrest"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "This is the PHP port of Hamcrest Matchers",
+            "keywords": [
+                "test"
+            ],
+            "support": {
+                "issues": "https://github.com/hamcrest/hamcrest-php/issues",
+                "source": "https://github.com/hamcrest/hamcrest-php/tree/v2.0.1"
+            },
+            "time": "2020-07-09T08:09:16+00:00"
+        },
+        {
+            "name": "mlabfactory/phpunit-self-api-integration",
+            "version": "v1.1.1-beta",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mlabfactory/phpunit-self-api-integration.git",
+                "reference": "b29aa320c657a85dd57ccdb56fa5ab54c88d4367"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mlabfactory/phpunit-self-api-integration/zipball/b29aa320c657a85dd57ccdb56fa5ab54c88d4367",
+                "reference": "b29aa320c657a85dd57ccdb56fa5ab54c88d4367",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^7.8",
+                "php": "^7.4 || ^8.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^11.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "MLAB\\PHPITest\\": "src/"
+                },
+                "files": [
+                    "src/Functions.php"
+                ]
+            },
+            "license": [
+                "GPL-3.0 license"
+            ],
+            "authors": [
+                {
+                    "name": "Marco De Felice",
+                    "email": "marco.defelice@mlabfactory.it"
+                }
+            ],
+            "description": "PHPUnit extension designed for conducting integration tests on self-contained APIs within PHP applications. This extension facilitates seamless testing of API endpoints within the same system, ensuring smooth integration and functionality.",
+            "support": {
+                "source": "https://github.com/mlabfactory/phpunit-self-api-integration/tree/v1.1.1-beta",
+                "issues": "https://github.com/mlabfactory/phpunit-self-api-integration/issues"
+            },
+            "time": "2024-08-30T12:53:55+00:00"
+        },
+        {
+            "name": "mockery/mockery",
+            "version": "1.6.12",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mockery/mockery.git",
+                "reference": "1f4efdd7d3beafe9807b08156dfcb176d18f1699"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mockery/mockery/zipball/1f4efdd7d3beafe9807b08156dfcb176d18f1699",
+                "reference": "1f4efdd7d3beafe9807b08156dfcb176d18f1699",
+                "shasum": ""
+            },
+            "require": {
+                "hamcrest/hamcrest-php": "^2.0.1",
+                "lib-pcre": ">=7.0",
+                "php": ">=7.3"
+            },
+            "conflict": {
+                "phpunit/phpunit": "<8.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8.5 || ^9.6.17",
+                "symplify/easy-coding-standard": "^12.1.14"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "library/helpers.php",
+                    "library/Mockery.php"
+                ],
+                "psr-4": {
+                    "Mockery\\": "library/Mockery"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Pádraic Brady",
+                    "email": "padraic.brady@gmail.com",
+                    "homepage": "https://github.com/padraic",
+                    "role": "Author"
+                },
+                {
+                    "name": "Dave Marshall",
+                    "email": "dave.marshall@atstsolutions.co.uk",
+                    "homepage": "https://davedevelopment.co.uk",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Nathanael Esayeas",
+                    "email": "nathanael.esayeas@protonmail.com",
+                    "homepage": "https://github.com/ghostwriter",
+                    "role": "Lead Developer"
+                }
+            ],
+            "description": "Mockery is a simple yet flexible PHP mock object framework",
+            "homepage": "https://github.com/mockery/mockery",
+            "keywords": [
+                "BDD",
+                "TDD",
+                "library",
+                "mock",
+                "mock objects",
+                "mockery",
+                "stub",
+                "test",
+                "test double",
+                "testing"
+            ],
+            "support": {
+                "docs": "https://docs.mockery.io/",
+                "issues": "https://github.com/mockery/mockery/issues",
+                "rss": "https://github.com/mockery/mockery/releases.atom",
+                "security": "https://github.com/mockery/mockery/security/advisories",
+                "source": "https://github.com/mockery/mockery"
+            },
+            "time": "2024-05-16T03:13:13+00:00"
+        },
+        {
             "name": "myclabs/deep-copy",
             "version": "1.11.1",
             "source": {
@@ -9647,7 +9900,10 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "budgetcontrol/schema-registry-service": 10,
+        "mlabfactory/phpunit-self-api-integration": 10
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
