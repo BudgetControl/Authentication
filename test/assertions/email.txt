@@ -1,0 +1,129 @@
+foo@bar.comReset Password<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background: #f2f2f2;
+            line-height: 1.5rem;
+            margin: 0;
+            padding: 0;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+            font-family: sans-serif;
+            line-height: normal;
+        }
+
+        hr {
+            border-style: dotted;
+            border-width: thin;
+            border-color: #c6c6c6;
+        }
+
+        .container, footer {
+            margin: 10px;
+            padding: 10px;
+            background-color: white;
+            border-radius: 20px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        a:link.button {
+            color: #fff;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
+        .button {
+            border-radius: 5px;
+            background: #059669;
+            padding: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        a:link {
+            color: #059669;
+        }
+
+        footer {
+            font-size: smaller;
+            text-align: justify;
+        }
+
+        footer p {
+            margin: 2px;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .row {
+            margin-bottom: 20px;
+        }
+
+        .mt-5 {
+            margin-top: 20px;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+
+    
+    
+    </style>
+
+</head>
+
+<body>
+    <div class="general-container">
+
+    <div class="container">
+    
+    <div class="logo text-center">
+        <img height="30px" src="https://d1lppblt9t2x15.cloudfront.net/logos/bf0d271a7f2045bda323b1d1a2e730e2.png" alt="Budget Control">
+    </div>
+
+    
+    <div class="row">
+
+        <p>We received a request to reset your password for your Budget Control account. To set a new password and regain access to your account, please follow the steps below:</p>
+        <p>Click on the following <a href="https://dev.app.budgetcontrol.lan/app/auth/reset-password/a70b090ceccf20c47db86acb1f3124f14a63d57c">link</a> to reset your password:</p>
+        <br/>
+        <a href="https://dev.app.budgetcontrol.lan/app/auth/reset-password/a70b090ceccf20c47db86acb1f3124f14a63d57c" target="_blank"
+                class="recovery-password button">
+                Reset tour password
+            </a>
+    </div>
+
+
+        <div>
+            <p>Thank you for choosing Budget Control!</p>
+            <p>The Budget Control team</p>
+        </div>
+
+    </div>
+</div>
+
+
+<hr/>
+<footer>
+    <div>
+    <p>This email was sent to foo@bar.com. Please don't reply to this email directly.</p>
+<p>For further assistance, please visit our help desk. You got this message because you signed up to receive BudgetControl emails. If you don't want to receive marketing from BudgetControl in the future, you can unsubscribe.</p>
+
+<p class="small-text credits">
+    Copyright  BudgetControl | Released under the AGPL License | © <span id="displayYear"></span> Thanks to
+    <a href="https://html.design/">Free Html Templates</a> &amp; <a href="https://www.mlabfactory.it">M-LabFactory</a> | <a href="/terms">Terms &amp; Conditions</a> | <a href="/privacy">Privacy Policy</a>
+</p>
+
+</div>
+</footer>
+
+</body>
+</html>

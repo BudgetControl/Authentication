@@ -159,14 +159,14 @@ class AuthController
      * @param Request $request The HTTP request object.
      * @param Response $response The HTTP response object.
      * @param array $args The route arguments.
-     * @return void
+     * @return Response The updated HTTP response object.
      */
     public function sendVerifyEmail(Request $request, Response $response, array $args)
     {
         $email = $request->getParsedBody()['email'];
         $user = User::where('email', $this->encrypt($email))->first();
         if ($user) {
-            $token = $this->generateToken(['email' => $email], $user->id, 'verify_email');
+            $token = $this->generateToken(['email' => $email, 'password' => ''], $user->id, 'verify_email');
             $mail = new \Budgetcontrol\Authentication\Service\MailService();
             $mail->send_signUpMail($email, $user->name, $token);
         }
@@ -182,14 +182,14 @@ class AuthController
      * @param Request $request The HTTP request object.
      * @param Response $response The HTTP response object.
      * @param array $args The route parameters.
-     * @return void
+     * @return Response The updated HTTP response object.
      */
     public function sendResetPasswordMail(Request $request, Response $response, array $args)
     {
         $email = $request->getParsedBody()['email'];
         $user = User::where('email', $this->encrypt($email))->first();
         if ($user) {
-            $token = $this->generateToken(['email' => $email], $user->id, 'reset_password');
+            $token = $this->generateToken(['email' => $email, 'password' => ''], $user->id, 'reset_password');
             $mail = new \Budgetcontrol\Authentication\Service\MailService();
             $mail->send_resetPassowrdMail($email, $user->name, $token);
         }

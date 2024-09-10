@@ -71,7 +71,8 @@
         "nikic/php-parser": "^5.0",
         "phpunit/phpunit": "^11.0",
         "fakerphp/faker": "^1.23",
-        "mlabfactory/phpunit-self-api-integration": "v1.1.1-beta"
+        "mlabfactory/phpunit-self-api-integration": "v1.1.1-beta",
+        "mockery/mockery": "^1.6"
     },
     "autoload": {
         "psr-4": {

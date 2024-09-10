@@ -3,7 +3,7 @@
 namespace Budgetcontrol\Authentication\Controller;
 
 use Carbon\Carbon;
-use Budgetcontrol\Authentication\Facade\Cache;
+use Illuminate\Support\Facades\Cache;
 use Budgetcontrol\Authentication\Traits\Crypt;
 use Psr\Http\Message\ResponseInterface as Response;
 use Budgetcontrol\Authentication\Domain\Model\User;

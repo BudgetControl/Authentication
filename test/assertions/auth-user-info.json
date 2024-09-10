@@ -1,0 +1,40 @@
+{
+    "uuid": "2f6cd46c-fbef-4d12-be20-61304463fdd8",
+    "name": "testuser",
+    "email": "foo@bar.com",
+    "email_verified_at": "2024-09-10T06:27:57.000000Z",
+    "created_at": "2024-09-10T06:27:57.000000Z",
+    "updated_at": "2024-09-10T06:27:57.000000Z",
+    "deleted_at": null,
+    "sub": false,
+    "workspaces": [
+        {
+            "id": 2,
+            "uuid": "4373a9a3-a482-4d5a-b8fe-c0572be7efe3",
+            "name": "test",
+            "description": "test",
+            "current": 0,
+            "created_at": "2024-09-10 06:27:57",
+            "updated_at": "2024-09-10 06:27:57",
+            "deleted_at": null,
+            "user_id": 2,
+            "workspace_id": 2
+        }
+    ],
+    "current_ws": "4373a9a3-a482-4d5a-b8fe-c0572be7efe3",
+    "workspace_settings": {
+        "id": 1,
+        "workspace_id": 2,
+        "setting": "app_configurations",
+        "data": "{\"currency_id\": 1, \"payment_type_id\": 1}",
+        "created_at": "2024-09-10 06:27:57",
+        "updated_at": "2024-09-10 06:27:57",
+        "deleted_at": null
+    },
+    "shared_with": [
+        {
+            "email": "foo@bar.com",
+            "name": "0kKAcYZUe84AGlEy81d3dg=="
+        }
+    ]
+}

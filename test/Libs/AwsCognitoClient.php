@@ -4,6 +4,7 @@ namespace Budgetcontrol\Test\Libs;
 class AwsCognitoClient {
 
     private int $expToken = 3600;
+    private bool $gotErrorRefreshToken = false;
 
     public function decodeAccessToken($authToken) {
         return [
@@ -16,10 +17,19 @@ class AwsCognitoClient {
     }
 
     public function refreshAuthentication($username, $refresh_token) {
+
+        if($this->gotErrorRefreshToken) {
+            throw new \Exception('Error refreshing token');
+        }
+
         return [
             'AccessToken' => 'new_access_token',
             'RefreshToken' => 'new_refresh_token'
         ];
+    }
+
+    public function setUserPassword($username, $password) {
+        return true;
     }
 
 
@@ -33,6 +43,21 @@ class AwsCognitoClient {
     public function setExpToken(int $expToken): self
     {
         $this->expToken = $expToken;
+
+        return $this;
+    }
+
+
+    /**
+     * Set the value of gotErrorRefreshToken
+     *
+     * @param bool $gotErrorRefreshToken
+     *
+     * @return self
+     */
+    public function setGotErrorRefreshToken(bool $gotErrorRefreshToken): self
+    {
+        $this->gotErrorRefreshToken = $gotErrorRefreshToken;
 
         return $this;
     }
