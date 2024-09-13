@@ -13,7 +13,7 @@ $app->post('/verify-email', \Budgetcontrol\Authentication\Controller\AuthControl
 $app->put('/reset-password/{token}', \Budgetcontrol\Authentication\Controller\AuthController::class . ':resetPassword');
 $app->get('/authenticate/{provider}', \Budgetcontrol\Authentication\Controller\ProviderController::class . ':authenticateProvider');
 $app->get('/authenticate/token/{provider}', \Budgetcontrol\Authentication\Controller\ProviderController::class . ':providerToken');
-$app->get('/logout', \Budgetcontrol\Authentication\Controller\AuthController::class . ':logout');
+$app->get('/logout', \Budgetcontrol\Authentication\Controller\LoginController::class . ':logout');
 $app->get('/user-info/by-email/{email}', \Budgetcontrol\Authentication\Controller\AuthController::class . ':userInfoByEmail');
 
 $app->get('/monitor', \Budgetcontrol\Authentication\Controller\Controller::class . ':monitor');
