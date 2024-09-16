@@ -4,16 +4,14 @@ namespace Budgetcontrol\Authentication\Controller;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Cache;
-use Budgetcontrol\Authentication\Traits\Crypt;
 use Budgetcontrol\Authentication\Domain\Model\User;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Budgetcontrol\Authentication\Facade\AwsCognitoClient;
 use Budgetcontrol\Connector\Factory\Workspace;
+use Budgetcontrol\Authentication\Facade\Crypt;
 
 class ProviderController {
-
-    use Crypt;
 
     /**
      * Authenticates the provider.
@@ -99,7 +97,7 @@ class ProviderController {
         // Decode ID Token
         $content = AwsCognitoClient::decodeAccessToken($tokens->id_token);
         $userEmail = $content['email'];
-        $user = User::where('email', $this->encrypt($userEmail))->with('workspaces')->first();
+        $user = User::where('email', Crypt::encrypt($userEmail))->with('workspaces')->first();
         $sub = $content['sub'];
       
         if(!$user) {
@@ -112,7 +110,7 @@ class ProviderController {
         }
 
         //retrive user workspaces
-        $user = User::where('email', $this->encrypt($userEmail))->with('workspaces')->first();
+        $user = User::where('email', Crypt::encrypt($userEmail))->with('workspaces')->first();
 
         Cache::put($sub.'refresh_token', $tokens->refresh_token, Carbon::now()->addDays(30));
         Cache::put($sub.'id_token', $tokens->id_token, Carbon::now()->addDays(30));

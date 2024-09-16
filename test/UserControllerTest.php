@@ -6,6 +6,7 @@ use Budgetcontrol\Authentication\Controller\UserController;
 use Budgetcontrol\Authentication\Domain\Model\User;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use Budgetcontrol\Authentication\Facade\Crypt;
 
 class UserControllerTest extends BaseCase
 {

@@ -46,6 +46,9 @@ require_once __DIR__ . '/../config/logger.php';
 /** mail configuration */
 require_once __DIR__ . '/../config/mail.php';
 
+// Set up cryptable facade
+require_once __DIR__ . '/../config/cryptable.php';
+
 // Set up the Facade application
 Facade::setFacadeApplication([
     'log' => $logger,
@@ -54,5 +57,6 @@ Facade::setFacadeApplication([
     'validator' => $validator,
     'aws-cognito-client' => $awsCognitoClient,
     'mail' => $mail,
-    'workspace' => Workspace::class
+    'workspace' => Workspace::class,
+    'crypt' => $crypt,
 ]);

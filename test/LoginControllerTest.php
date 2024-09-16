@@ -4,7 +4,7 @@ namespace Budgetcontrol\Test;
 
 use MLAB\PHPITest\Entity\Json;
 use MLAB\PHPITest\Assertions\JsonAssert;
-use Budgetcontrol\Authentication\Traits\Crypt;
+use Budgetcontrol\Authentication\Facade\Crypt;
 use Budgetcontrol\Authentication\Traits\AuthFlow;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -14,7 +14,7 @@ use Budgetcontrol\Authentication\Facade\AwsCognitoClient;
 
 class LoginControllerTest extends BaseCase
 {
-    use AuthFlow, Crypt;
+    use AuthFlow;
 
     public function test_authenticate_with_valid_credentials()
     {

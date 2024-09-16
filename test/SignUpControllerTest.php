@@ -4,7 +4,6 @@ namespace Budgetcontrol\Test;
 
 use MLAB\PHPITest\Entity\Json;
 use MLAB\PHPITest\Assertions\JsonAssert;
-use Budgetcontrol\Authentication\Traits\Crypt;
 use Budgetcontrol\Authentication\Traits\AuthFlow;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -12,10 +11,11 @@ use Budgetcontrol\Authentication\Controller\SignUpController;
 use Budgetcontrol\Authentication\Domain\Model\User;
 use Budgetcontrol\Authentication\Facade\AwsCognitoClient;
 use Illuminate\Support\Facades\Cache;
+use Budgetcontrol\Authentication\Facade\Crypt;
 
 class SignUpControllerTest extends BaseCase
 {
-    use AuthFlow, Crypt;
+    use AuthFlow;
 
     public function test_signUp_with_valid_data()
     {

@@ -12,8 +12,8 @@ use Budgetcontrol\Authentication\Domain\Repository\AuthRepository;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Budgetcontrol\Authentication\Exception\AuthException;
 use Budgetcontrol\Authentication\Facade\AwsCognitoClient;
-use Budgetcontrol\Authentication\Traits\Crypt;
 use League\Container\Exception\NotFoundException;
+use Budgetcontrol\Authentication\Facade\Crypt;
 
 class AuthController
 {
@@ -72,7 +72,7 @@ class AuthController
         }
         $decodedIdToken = AwsCognitoClient::decodeAccessToken($idToken);
 
-        $user = User::where("email", $this->encrypt($decodedIdToken['email']))->first();
+        $user = User::where("email", Crypt::encrypt($decodedIdToken['email']))->first();
         $userId = $user->id;
 
         if (is_null($userId)) {
@@ -143,7 +143,7 @@ class AuthController
         $tokenInCache = Cache::get($token);
         $email = $tokenInCache->email;
 
-        $user = User::where('email', $this->encrypt($email))->first();
+        $user = User::where('email', Crypt::encrypt($email))->first();
         if ($user) {
             AwsCognitoClient::setUserPassword($email, $newPassword, true);
             $user->password = $newPassword;
@@ -164,7 +164,7 @@ class AuthController
     public function sendVerifyEmail(Request $request, Response $response, array $args)
     {
         $email = $request->getParsedBody()['email'];
-        $user = User::where('email', $this->encrypt($email))->first();
+        $user = User::where('email', Crypt::encrypt($email))->first();
         if ($user) {
             $token = $this->generateToken(['email' => $email, 'password' => ''], $user->id, 'verify_email');
             $mail = new \Budgetcontrol\Authentication\Service\MailService();
@@ -187,7 +187,7 @@ class AuthController
     public function sendResetPasswordMail(Request $request, Response $response, array $args)
     {
         $email = $request->getParsedBody()['email'];
-        $user = User::where('email', $this->encrypt($email))->first();
+        $user = User::where('email', Crypt::encrypt($email))->first();
         if ($user) {
             $token = $this->generateToken(['email' => $email, 'password' => ''], $user->id, 'reset_password');
             $mail = new \Budgetcontrol\Authentication\Service\MailService();
@@ -210,7 +210,7 @@ class AuthController
     public function userInfoByEmail(Request $request, Response $response, array $args)
     {
         $email = $args['email'];
-        $user = User::where('email', $this->encrypt($email))->first();
+        $user = User::where('email', Crypt::encrypt($email))->first();
         if (!$user) {
             throw new AuthException('User not found', 404);
         }

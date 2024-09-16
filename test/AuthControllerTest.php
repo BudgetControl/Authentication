@@ -5,17 +5,17 @@ namespace Budgetcontrol\Test;
 use Budgetcontrol\Authentication\Controller\AuthController;
 use Budgetcontrol\Authentication\Exception\AuthException;
 use Budgetcontrol\Authentication\Facade\AwsCognitoClient;
-use Budgetcontrol\Authentication\Traits\Crypt;
 use Budgetcontrol\Authentication\Traits\AuthFlow;
 use Illuminate\Support\Facades\Cache;
 use MLAB\PHPITest\Assertions\JsonAssert;
 use MLAB\PHPITest\Entity\Json;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use Budgetcontrol\Authentication\Facade\Crypt;
 
 class AuthControllerTest extends BaseCase
 {
-    use AuthFlow, Crypt;
+    use AuthFlow;
 
     public function test_check_with_valid_token()
     {
