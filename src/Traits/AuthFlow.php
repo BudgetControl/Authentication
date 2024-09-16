@@ -2,8 +2,7 @@
 namespace Budgetcontrol\Authentication\Traits;
 
 use Illuminate\Support\Carbon;
-use Budgetcontrol\Authentication\Facade\Cache;
-use Budgetcontrol\Authentication\Domain\Model\User;
+use Illuminate\Support\Facades\Cache;
 use Budgetcontrol\Authentication\Domain\Model\Token;
 
 trait AuthFlow {

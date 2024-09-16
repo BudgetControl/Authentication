@@ -18,6 +18,26 @@
         {
             "type":"vcs",
             "url":"git@github.com:BudgetControl/MailerService.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/mlabfactory/phpunit-self-api-integration.git"
+        },
+        {
+            "type":"vcs",
+            "url":"https://github.com/BudgetControl/Library.git"
+        },
+        {
+            "type":"vcs",
+            "url":"git@github.com:BudgetControl/SeedsTestLibs.git"
+        },
+        {
+            "type":"vcs",
+            "url":"git@github.com:BudgetControl/Schema-Registry-Service.git"
+        },
+        {
+            "type":"vcs",
+            "url":"git@github.com:BudgetControl/LibsCryptable.git"
         }
     ],
     "require": {
@@ -46,16 +66,23 @@
         "malirobot/aws-cognito": "^v1.0",
         "budgetcontrol/libs-connector": "v1.0",
         "logtail/monolog-logtail": "^3.1",
-        "budgetcontrol/mailer": "^v0.1"
+        "budgetcontrol/mailer": "^v0.1",
+        "budgetcontrol/library": "^v1.1",
+        "budgetcontrol/schema-registry-service": "v1.0-beta",
+        "budgetcontrol/seeds": "^v0.1",
+        "budgetcontrol/cryptable": "^v0.1"
     },
     "require-dev": {
         "nikic/php-parser": "^5.0",
         "phpunit/phpunit": "^11.0",
-        "fakerphp/faker": "^1.23"
+        "fakerphp/faker": "^1.23",
+        "mlabfactory/phpunit-self-api-integration": "v1.1.1-beta",
+        "mockery/mockery": "^1.6"
     },
     "autoload": {
         "psr-4": {
-            "Budgetcontrol\\Authentication\\": "src/"
+            "Budgetcontrol\\Authentication\\": "src/",
+            "Budgetcontrol\\Test\\": "test/"
         },
         "files": [
             "config/helpers.php"

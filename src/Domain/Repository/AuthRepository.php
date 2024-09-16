@@ -1,12 +1,10 @@
 <?php
 namespace Budgetcontrol\Authentication\Domain\Repository;
 
-use Budgetcontrol\Authentication\Traits\Crypt;
 use Illuminate\Database\Capsule\Manager as DB;
+use Budgetcontrol\Authentication\Facade\Crypt;
 
 class AuthRepository {
-
-    use Crypt;
 
     public function workspaces(int $userId) {
        return DB::select(
@@ -33,7 +31,7 @@ class AuthRepository {
         );
 
         foreach ($results as $key => $result) {
-            $result->email = $this->decrypt($result->email);
+            $result->email = Crypt::decrypt($result->email);
             if($result->email === false) {
                 unset($results[$key]);
             }

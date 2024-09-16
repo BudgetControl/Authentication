@@ -1,5 +1,5 @@
 <?php 
-namespace Budgetcontrol\Authentication\Domain\Model;
+namespace Budgetcontrol\Library\Model;
 
 use Illuminate\Database\Eloquent\Model;
 

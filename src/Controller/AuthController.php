@@ -7,17 +7,17 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
 use Budgetcontrol\Authentication\Traits\AuthFlow;
 use Psr\Http\Message\ResponseInterface as Response;
-use Budgetcontrol\Authentication\Domain\Model\User;
+use Budgetcontrol\Library\Model\User;
 use Budgetcontrol\Authentication\Domain\Repository\AuthRepository;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Budgetcontrol\Authentication\Exception\AuthException;
 use Budgetcontrol\Authentication\Facade\AwsCognitoClient;
-use Budgetcontrol\Authentication\Traits\Crypt;
 use League\Container\Exception\NotFoundException;
+use Budgetcontrol\Authentication\Facade\Crypt;
 
 class AuthController
 {
-    use AuthFlow, Crypt;
+    use AuthFlow;
 
     public function check(Request $request, Response $response, array $args)
     {
@@ -72,7 +72,7 @@ class AuthController
         }
         $decodedIdToken = AwsCognitoClient::decodeAccessToken($idToken);
 
-        $user = User::where("email", $this->encrypt($decodedIdToken['email']))->first();
+        $user = User::where("email", Crypt::encrypt($decodedIdToken['email']))->first();
         $userId = $user->id;
 
         if (is_null($userId)) {
@@ -143,7 +143,7 @@ class AuthController
         $tokenInCache = Cache::get($token);
         $email = $tokenInCache->email;
 
-        $user = User::where('email', $this->encrypt($email))->first();
+        $user = User::where('email', Crypt::encrypt($email))->first();
         if ($user) {
             AwsCognitoClient::setUserPassword($email, $newPassword, true);
             $user->password = $newPassword;
@@ -159,14 +159,14 @@ class AuthController
      * @param Request $request The HTTP request object.
      * @param Response $response The HTTP response object.
      * @param array $args The route arguments.
-     * @return void
+     * @return Response The updated HTTP response object.
      */
     public function sendVerifyEmail(Request $request, Response $response, array $args)
     {
         $email = $request->getParsedBody()['email'];
-        $user = User::where('email', $this->encrypt($email))->first();
+        $user = User::where('email', Crypt::encrypt($email))->first();
         if ($user) {
-            $token = $this->generateToken(['email' => $email], $user->id, 'verify_email');
+            $token = $this->generateToken(['email' => $email, 'password' => ''], $user->id, 'verify_email');
             $mail = new \Budgetcontrol\Authentication\Service\MailService();
             $mail->send_signUpMail($email, $user->name, $token);
         }
@@ -182,14 +182,14 @@ class AuthController
      * @param Request $request The HTTP request object.
      * @param Response $response The HTTP response object.
      * @param array $args The route parameters.
-     * @return void
+     * @return Response The updated HTTP response object.
      */
     public function sendResetPasswordMail(Request $request, Response $response, array $args)
     {
         $email = $request->getParsedBody()['email'];
-        $user = User::where('email', $this->encrypt($email))->first();
+        $user = User::where('email', Crypt::encrypt($email))->first();
         if ($user) {
-            $token = $this->generateToken(['email' => $email], $user->id, 'reset_password');
+            $token = $this->generateToken(['email' => $email, 'password' => ''], $user->id, 'reset_password');
             $mail = new \Budgetcontrol\Authentication\Service\MailService();
             $mail->send_resetPassowrdMail($email, $user->name, $token);
         }
@@ -210,7 +210,7 @@ class AuthController
     public function userInfoByEmail(Request $request, Response $response, array $args)
     {
         $email = $args['email'];
-        $user = User::where('email', $this->encrypt($email))->first();
+        $user = User::where('email', Crypt::encrypt($email))->first();
         if (!$user) {
             throw new AuthException('User not found', 404);
         }
