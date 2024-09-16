@@ -1,6 +1,7 @@
 <?php
 namespace Budgetcontrol\Test;
 
+use Budgetcontrol\Authentication\Facade\Crypt;
 use Budgetcontrol\Test\Libs\Cache;
 use Budgetcontrol\Test\Libs\ClientMail;
 use Illuminate\Support\Facades\Facade;
@@ -33,7 +34,10 @@ class BaseCase extends \PHPUnit\Framework\TestCase
                 []
             ),
             'mail' => new ClientMail(),
-            'workspace' => new \Budgetcontrol\Test\Libs\Workspace()
+            'workspace' => new \Budgetcontrol\Test\Libs\Workspace(),
+            'crypt' => new \BudgetcontrolLibs\Crypt\Service\CryptableService(
+                env('APP_KEY')
+            )
         ]);
 
     }
