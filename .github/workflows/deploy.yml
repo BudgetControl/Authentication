@@ -40,6 +40,8 @@ jobs:
 
     - name: Create .env
       run: touch .env
+
+    - name: Set up .env
       run: echo "APP_KEY=testing" >> .env
 
     - name: Run database migrations and seeders
