@@ -36,7 +36,7 @@ class LoginControllerTest extends BaseCase
             new Json(json_decode((string) $result->getBody()))
         );
         $jsonresponse->assertJsonIsEqualJsonFile(__DIR__ . '/assertions/authentication.json',
-        ['created_at', 'updated_at', 'deleted_at', 'email_verified_at']);
+        ['created_at', 'updated_at', 'deleted_at', 'email_verified_at', 'id']);
     }
 
     public function test_authenticate_with_invalid_credentials()
