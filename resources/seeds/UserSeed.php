@@ -1,7 +1,7 @@
 <?php
 
 use Phinx\Seed\AbstractSeed;
-use Budgetcontrol\Authentication\Domain\Model\User;
+use Budgetcontrol\Library\Model\User;
 
 class UserSeed extends AbstractSeed
 {

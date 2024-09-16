@@ -1,6 +1,6 @@
 <?php
 
-namespace Budgetcontrol\Authentication\Domain\Model;
+namespace Budgetcontrol\Library\Model;
 
 use Budgetcontrol\Authentication\Facade\Crypt;
 use Illuminate\Support\Facades\Cache;

@@ -12,7 +12,7 @@ namespace Budgetcontrol\Authentication\Controller;
  * - 4. create default settings
  */
 
-use Budgetcontrol\Authentication\Domain\Model\User;
+use Budgetcontrol\Library\Model\User;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Illuminate\Support\Facades\Validator;

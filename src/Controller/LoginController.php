@@ -5,7 +5,7 @@ namespace Budgetcontrol\Authentication\Controller;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Psr\Http\Message\ResponseInterface as Response;
-use Budgetcontrol\Authentication\Domain\Model\User;
+use Budgetcontrol\Library\Model\User;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Budgetcontrol\Authentication\Exception\AuthException;
 use Budgetcontrol\Authentication\Facade\AwsCognitoClient;

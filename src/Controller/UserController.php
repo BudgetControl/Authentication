@@ -1,7 +1,7 @@
 <?php
 namespace Budgetcontrol\Authentication\Controller;
 
-use Budgetcontrol\Authentication\Domain\Model\User;
+use Budgetcontrol\Library\Model\User;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 

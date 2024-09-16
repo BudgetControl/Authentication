@@ -8,7 +8,7 @@ use Budgetcontrol\Authentication\Traits\AuthFlow;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Budgetcontrol\Authentication\Controller\SignUpController;
-use Budgetcontrol\Authentication\Domain\Model\User;
+use Budgetcontrol\Library\Model\User;
 use Budgetcontrol\Authentication\Facade\AwsCognitoClient;
 use Illuminate\Support\Facades\Cache;
 use Budgetcontrol\Authentication\Facade\Crypt;
