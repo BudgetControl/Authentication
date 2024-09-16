@@ -2,13 +2,11 @@
 
 namespace Budgetcontrol\Authentication\Domain\Model;
 
-use Budgetcontrol\Authentication\Traits\Crypt;
+use Budgetcontrol\Authentication\Facade\Crypt;
 use Illuminate\Support\Facades\Cache;
 
 class Token
 {
-    use Crypt;
-
     private string $token;
     protected mixed $data;
 
@@ -40,7 +38,7 @@ class Token
             $data = json_encode($data);
         }
 
-        return $this->encrypt($data);
+        return Crypt::encrypt($data);
     }
 
     /**
