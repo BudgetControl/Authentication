@@ -17,7 +17,7 @@ use Budgetcontrol\Authentication\Facade\Crypt;
 
 class AuthController
 {
-    use AuthFlow, Crypt;
+    use AuthFlow;
 
     public function check(Request $request, Response $response, array $args)
     {

@@ -23,10 +23,15 @@ This repository contains the workspace for managing the BudgetControl applicatio
 
 5. Open your browser and visit [http://localhost:8082](http://localhost:8082) to access the BudgetControl application.
 
-## Task Commands
+## Build dev enviroment
+- docker-compose -f docker-compose.yml -f -f docker-compose.db.yml up -d
+- docker container cp bin/apache/default.conf budgetcontrol-ms-authentication:/etc/apache2/sites-available/budgetcontrol.cloud.conf
+- docker container exec budgetcontrol-ms-authentication service apache2 restart
 
-- `task build:dev`: Install and build dev application.
-- `task build`: Install and build base application.
+## Run PHP Tests
+- docker exec budgetcontrol-ms-authentication bash -c "vendor/bin/phinx rollback -t 0 && vendor/bin/phinx migrate && vendor/bin/phinx seed:run" 
+- docker exec budgetcontrol-ms-authentication vendor/bin/phpunit test
+
 
 ## Contributing
 
