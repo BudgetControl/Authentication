@@ -10,9 +10,13 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Budgetcontrol\Authentication\Facade\AwsCognitoClient;
 use Budgetcontrol\Connector\Factory\Workspace;
 use Budgetcontrol\Authentication\Facade\Crypt;
+use Budgetcontrol\Authentication\Definitions\Context;
+use Illuminate\Support\Facades\Facade;
 
-class ProviderController {
+class ProviderController extends Controller {
 
+    private Context $context;
+     
     /**
      * Authenticates the provider.
      *
@@ -26,7 +30,13 @@ class ProviderController {
         $providerName = $args['provider'];
 
         try {
-            $provider = AwsCognitoClient::provider();
+
+            $authCognito = Facade::getFacadeApplication()["aws-cognito-client"];
+            if($this->isIos($request) === true || $this->isAndroid($request) === true) {
+                $authCognito = $authCognito->setAppRedirectUri(env('AWS_COGNITO_REDIRECT_DEEPLINK'));
+            }
+
+            $provider = $authCognito->provider();
             $uri = $provider->$providerName(env('COGNITO_GOOGLE_AUTH_URL'));
 
         } catch (\Throwable $e) {
