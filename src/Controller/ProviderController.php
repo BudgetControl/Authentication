@@ -102,7 +102,6 @@ class ProviderController {
       
         if(!$user) {
             $this->signupFromProvider($content['name'], $userEmail, $sub);
-            $user->email_verified_at = date('Y-m-d H:i:s');
         } else {
             // Update user information sub
             $user->sub = $sub;
@@ -137,6 +136,7 @@ class ProviderController {
         $user->name = $userName;
         $user->uuid = \Ramsey\Uuid\Uuid::uuid4()->toString();
         $user->password = rand(100000, 999999);
+        $user->email_verified_at = date('Y-m-d H:i:s');
         $user->sub = $sub;
         $user->save();
 
