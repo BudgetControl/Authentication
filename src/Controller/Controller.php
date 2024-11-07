@@ -62,7 +62,7 @@ class Controller {
      */
     protected function isAndroid(Request $request): bool
     {
-        return $this->checkUserAgent($request, 'android') && $this->existHeader($request, 'X-Android');
+        return $this->checkUserAgent($request, 'android');
     }
     
     /**
@@ -73,7 +73,7 @@ class Controller {
      */
     protected function isIos(Request $request): bool
     {
-        return $this->checkUserAgent($request, 'ios') && $this->existHeader($request, 'X-Ios');
+        return $this->checkUserAgent($request, 'ios');
     }
 
 
