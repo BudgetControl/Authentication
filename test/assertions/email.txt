@@ -97,9 +97,9 @@ john.doe@example.comSign Up Confirmation<!DOCTYPE html>
                 have you on board and help you effectively manage your household finances.</p>
             <br />
             <p>To complete your registration and activate your email address, please follow the steps below:</p>
-            <p>Click on the following <a href="https://dev.app.budgetcontrol.lan/app/auth/confirm/385b5f6c23dc47fda87b07e38ad115840525efa5">link</a> to activate your email address:</p>
+            <p>Click on the following <a href="http://localhost/app/auth/confirm/268880455219b75eef3fe000619f5ed92221d47e">link</a> to activate your email address:</p>
             <br />
-            <a href="https://dev.app.budgetcontrol.lan/app/auth/confirm/385b5f6c23dc47fda87b07e38ad115840525efa5" target="_blank"
+            <a href="http://localhost/app/auth/confirm/268880455219b75eef3fe000619f5ed92221d47e" target="_blank"
                 class="button">
                 Confirm Email
             </a>
