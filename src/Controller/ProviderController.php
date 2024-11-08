@@ -10,13 +10,9 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Budgetcontrol\Authentication\Facade\AwsCognitoClient;
 use Budgetcontrol\Connector\Factory\Workspace;
 use Budgetcontrol\Authentication\Facade\Crypt;
-use Budgetcontrol\Authentication\Definitions\Context;
-use Illuminate\Support\Facades\Facade;
 
-class ProviderController extends Controller {
+class ProviderController {
 
-    private Context $context;
-     
     /**
      * Authenticates the provider.
      *
