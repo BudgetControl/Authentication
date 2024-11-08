@@ -21,6 +21,9 @@ class ProviderControllerTest extends TestCase
 
         $this->assertEquals(200, $result->getStatusCode());
         $this->assertArrayHasKey('uri', json_decode((string) $result->getBody(),true));
+
+        $uri = json_decode((string) $result->getBody(),true)['uri'];
+        $this->assertStringContainsString('AWS_COGNITO_REDIRECT_URI', $uri);
     }
 
     public function test_authenticateProvider_with_invalid_provider()
@@ -70,5 +73,23 @@ class ProviderControllerTest extends TestCase
         $this->assertEquals('Authentication failed',json_decode((string) $result->getBody(),true)['message']);
     }
 
+    public function test_providerUrl_for_mobile_phone()
+    {
+        $request = $this->createMock(Request::class);
+        $response = $this->createMock(Response::class);
+        $args = ['provider' => 'google'];
+        $queryParam = '?mobile=android';
+
+        $request->method('getQueryParams')->willReturn($queryParam);
+
+        $controller = new ProviderController();
+        $result = $controller->authenticateProvider($request, $response, $args);
+
+        $this->assertEquals(200, $result->getStatusCode());
+        $this->assertArrayHasKey('uri', json_decode((string) $result->getBody(),true));
+
+        $uri = json_decode((string) $result->getBody(),true)['uri'];
+        $this->assertStringContainsString('AWS_COGNITO_REDIRECT_DEEPLINK', $uri);
+    }
 
 }
