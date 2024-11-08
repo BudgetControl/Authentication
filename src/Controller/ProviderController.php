@@ -3,13 +3,14 @@ namespace Budgetcontrol\Authentication\Controller;
 
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Cache;
 use Budgetcontrol\Library\Model\User;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Facade;
+use Budgetcontrol\Authentication\Facade\Crypt;
+use Budgetcontrol\Connector\Factory\Workspace;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Budgetcontrol\Authentication\Facade\AwsCognitoClient;
-use Budgetcontrol\Connector\Factory\Workspace;
-use Budgetcontrol\Authentication\Facade\Crypt;
 
 class ProviderController {
 
