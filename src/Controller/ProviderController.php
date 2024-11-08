@@ -3,13 +3,14 @@ namespace Budgetcontrol\Authentication\Controller;
 
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Cache;
 use Budgetcontrol\Library\Model\User;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Facade;
+use Budgetcontrol\Authentication\Facade\Crypt;
+use Budgetcontrol\Connector\Factory\Workspace;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Budgetcontrol\Authentication\Facade\AwsCognitoClient;
-use Budgetcontrol\Connector\Factory\Workspace;
-use Budgetcontrol\Authentication\Facade\Crypt;
 
 class ProviderController {
 
@@ -24,9 +25,16 @@ class ProviderController {
     public function authenticateProvider(Request $request, Response $response, array $args)
     {
         $providerName = $args['provider'];
+        $queryParams = $request->getQueryParams();
 
         try {
-            $provider = AwsCognitoClient::provider();
+
+            $authCognito = Facade::getFacadeApplication()["aws-cognito-client"];
+            if($queryParams['device'] === 'android' || $queryParams['device'] === 'ios') {
+                $authCognito = $authCognito->setAppRedirectUri(env('AWS_COGNITO_REDIRECT_DEEPLINK'));
+            }
+
+            $provider = $authCognito->provider();
             $uri = $provider->$providerName(env('COGNITO_GOOGLE_AUTH_URL'));
 
         } catch (\Throwable $e) {
