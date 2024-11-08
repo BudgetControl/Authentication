@@ -28,11 +28,12 @@ class ProviderController extends Controller {
     public function authenticateProvider(Request $request, Response $response, array $args)
     {
         $providerName = $args['provider'];
+        $queryParams = $request->getQueryParams();
 
         try {
 
             $authCognito = Facade::getFacadeApplication()["aws-cognito-client"];
-            if($this->isIos($request) === true || $this->isAndroid($request) === true) {
+            if($queryParams['mobile'] === 'android' || $queryParams['mobile'] === 'ios') {
                 $authCognito = $authCognito->setAppRedirectUri(env('AWS_COGNITO_REDIRECT_DEEPLINK'));
             }
 
