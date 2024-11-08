@@ -29,7 +29,7 @@ class ProviderController {
         try {
 
             $authCognito = Facade::getFacadeApplication()["aws-cognito-client"];
-            if($queryParams['mobile'] === 'android' || $queryParams['mobile'] === 'ios') {
+            if($queryParams['device'] === 'android' || $queryParams['device'] === 'ios') {
                 $authCognito = $authCognito->setAppRedirectUri(env('AWS_COGNITO_REDIRECT_DEEPLINK'));
             }
 
