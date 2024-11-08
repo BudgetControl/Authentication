@@ -1,7 +1,7 @@
 <?php
 
-//setup log level from env
 
+//setup log level from env
 switch(env('APP_LOG_LEVEL','debug')) {
     case 'debug':
         $logLevel = \Monolog\Level::Debug;
@@ -32,24 +32,15 @@ switch(env('APP_LOG_LEVEL','debug')) {
 }
 
 //setup log with BetterStack
-$logger = new \Monolog\Logger(env('APP_NAME','PHP-HTTP-PROXY'));
+$logger = new \Monolog\Logger('MS-AUTH');
 
-// log rotation
-$logPath = env('APP_LOG_PATH', __DIR__.'/../storage/logs/log.log');
+// log on FS
+$logPath = env('APP_LOG_PATH',__DIR__.'/../storage/logs/log-'.date("Ymd").'.log');
+$streamHandler = new \Monolog\Handler\StreamHandler($logPath, $logLevel);
 
-$output = "%datetime% > %level_name% > %message% %context% %extra%\n";
-
-// finally, create a formatter
-$formatter = new \Monolog\Formatter\LineFormatter($output);
-
-$rotatingFileHandler = new \Monolog\Handler\RotatingFileHandler($logPath, (int) env('APP_LOG_ROTATION', 7), $logLevel);
-$rotatingFileHandler->setFormatter($formatter); 
-
-$formatter->setJsonPrettyPrint(true);
-
-$formatter->includeStacktraces(true);
-
-$logger->pushHandler($rotatingFileHandler);
+$formatter = new \Monolog\Formatter\LineFormatter('[%channel%][%level_name%] %message% %context% %extra%\n');
+$streamHandler->setFormatter($formatter);
+$logger->pushHandler($streamHandler);
 
 // log on Logtail only in prod
 if(env('APP_ENV') == 'prod') {
