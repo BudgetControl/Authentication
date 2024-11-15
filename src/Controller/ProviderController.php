@@ -78,6 +78,8 @@ class ProviderController {
             'success' => true,
             'message' => 'User authenticated',
             'token' => $authResponse['token'],
+            'refresh_token' => $authResponse['refresh_token'],
+            'id_token' => $authResponse['id_token'],
             'workspaces' => $authResponse['workspaces']
         ]);
     }
@@ -116,6 +118,8 @@ class ProviderController {
             
         return [
             'token' => $tokens->access_token,
+            'refresh_token' => $tokens->refresh_token,
+            'id_token' => $tokens->id_token,
             'workspaces' => $user->workspaces
         ];
     }

@@ -63,6 +63,7 @@ class LoginController
             'success' => true,
             'message' => 'User authenticated',
             'refresh_token' => $refreshToken,
+            'id_token' => $idToken,
             'token' => $userAuth['AccessToken'],
             'workspaces' => $user->workspaces
         ]);
