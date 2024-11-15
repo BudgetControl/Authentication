@@ -10,6 +10,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Budgetcontrol\Authentication\Exception\AuthException;
 use Budgetcontrol\Authentication\Facade\AwsCognitoClient;
 use Budgetcontrol\Authentication\Facade\Crypt;
+use Illuminate\Support\Facades\Log;
 
 class LoginController
 {
@@ -39,6 +40,15 @@ class LoginController
         }
         $cryptedMail = Crypt::encrypt($user);
         $user = User::where('email', $cryptedMail)->with('workspaces')->first();
+
+        if(is_null($user)) {
+            Log::info('User not found in database');
+            return response([
+                'success' => false,
+                'message' => 'User not authenticated'
+            ], 401);
+        }
+
         $user->sub = $sub;
         $user->save();
 
@@ -52,6 +62,8 @@ class LoginController
         return response([
             'success' => true,
             'message' => 'User authenticated',
+            'refresh_token' => $refreshToken,
+            'id_token' => $idToken,
             'token' => $userAuth['AccessToken'],
             'workspaces' => $user->workspaces
         ]);
