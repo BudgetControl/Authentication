@@ -14,6 +14,7 @@ use Budgetcontrol\Authentication\Exception\AuthException;
 use Budgetcontrol\Authentication\Facade\AwsCognitoClient;
 use League\Container\Exception\NotFoundException;
 use Budgetcontrol\Authentication\Facade\Crypt;
+use Illuminate\Support\Facades\Log;
 
 class AuthController
 {
@@ -65,6 +66,8 @@ class AuthController
 
         $authToken = str_replace('Bearer ', '', $authToken);
         $decodedToken = AwsCognitoClient::decodeAccessToken($authToken);
+
+        \Illuminate\Support\Facades\Log::debug('Decoded token: ' . json_encode($decodedToken));
 
         $idToken = Cache::get($decodedToken['sub'] . 'id_token');
         if (empty($idToken)) {

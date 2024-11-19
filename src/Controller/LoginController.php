@@ -26,6 +26,8 @@ class LoginController
             $decodedToken = AwsCognitoClient::decodeAccessToken($userAuth['AccessToken']);
             $sub = $decodedToken['sub'];
 
+            \Illuminate\Support\Facades\Log::debug('Decoded token: ' . json_encode($decodedToken));
+
             if (!empty($userAuth['error'])) {
                 return response([
                     'success' => false,
