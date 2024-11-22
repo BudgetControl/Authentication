@@ -25,14 +25,10 @@
     "workspace_settings": {
         "name": "test",
         "uuid": "4373a9a3-a482-4d5a-b8fe-c0572be7efe3",
-        "data": [
-            {
-                "currency_id": 1
-            },
-            {
+        "data": {
+                "currency_id": 1,
                 "payment_type_id": 1
             }
-        ]
     },
     "shared_with": [
         {
