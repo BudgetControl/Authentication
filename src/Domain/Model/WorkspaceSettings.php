@@ -24,7 +24,7 @@ class WorkspaceSettings {
             throw new \Exception('Invalid json');
         }
 
-        return json_decode($this->data, true);
+        return json_decode($this->data);
     }
 
     public function getName(): string {

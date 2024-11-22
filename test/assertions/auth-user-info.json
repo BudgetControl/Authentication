@@ -23,13 +23,16 @@
     ],
     "current_ws": "4373a9a3-a482-4d5a-b8fe-c0572be7efe3",
     "workspace_settings": {
-        "id": 1,
-        "workspace_id": 2,
-        "setting": "app_configurations",
-        "data": "{\"currency_id\": 1, \"payment_type_id\": 1}",
-        "created_at": "2024-09-10 06:27:57",
-        "updated_at": "2024-09-10 06:27:57",
-        "deleted_at": null
+        "name": "test",
+        "uuid": "4373a9a3-a482-4d5a-b8fe-c0572be7efe3",
+        "data": [
+            {
+                "currency_id": 1
+            },
+            {
+                "payment_type_id": 1
+            }
+        ]
     },
     "shared_with": [
         {
