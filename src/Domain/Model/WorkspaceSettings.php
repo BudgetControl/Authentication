@@ -34,9 +34,9 @@ class WorkspaceSettings {
     public function toArray()
     {
         return [
-            'uuid' => $this->uuid,
-            'data' => $this->data,
-            'name' => $this->name
+            'uuid' => $this->getUuid(),
+            'data' => $this->getData(),
+            'name' => $this->getName()
         ];
     }
 }
