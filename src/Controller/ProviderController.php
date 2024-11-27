@@ -185,7 +185,7 @@ class ProviderController {
      */
     private function authenticateFromWeb(string $code)
     {
-        $tokens = AwsCognitoClient::authenticateProvider($code, env('AWS_COGNITO_REDIRECT_URL'));
+        $tokens = AwsCognitoClient::authenticateProvider($code, env('AWS_COGNITO_REDIRECT_URI'));
         return $tokens;
     }
 
