@@ -106,7 +106,7 @@ class AuthController
             $user->toArray(),
             ['workspaces' => $workspace],
             ['current_ws' =>  $active],
-            ['workspace_settings' => $settings[0]],
+            ['workspace_settings' => $settings->toArray()],
             ['shared_with' => $sharedWith]
         );
         // save in cache

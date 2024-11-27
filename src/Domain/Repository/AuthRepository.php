@@ -3,6 +3,7 @@ namespace Budgetcontrol\Authentication\Domain\Repository;
 
 use Illuminate\Database\Capsule\Manager as DB;
 use Budgetcontrol\Authentication\Facade\Crypt;
+use Budgetcontrol\Authentication\Domain\Model\WorkspaceSettings;
 
 class AuthRepository {
 
@@ -15,10 +16,24 @@ class AuthRepository {
        );
     }
 
-    public function workspace_settings(int $workspaceId)
+    /**
+     * Retrieves the settings for a specific workspace.
+     *
+     * @param int $workspaceId The ID of the workspace.
+     * @return WorkspaceSettings The settings of the specified workspace.
+     */
+    public function workspace_settings(int $workspaceId): WorkspaceSettings
     {
-        return DB::select(
-            "select * from workspace_settings where workspace_id = $workspaceId"
+        $result = DB::select(
+            "select uuid, data, name from workspace_settings as wss 
+            right join workspaces as ws on wss.workspace_id = ws.id 
+            WHERE wss.workspace_id = $workspaceId"
+        );
+
+        return new WorkspaceSettings(
+            $result[0]->uuid,
+            $result[0]->data,
+            $result[0]->name
         );
     }
 

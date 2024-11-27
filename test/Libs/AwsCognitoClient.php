@@ -10,6 +10,7 @@ class AwsCognitoClient
     private int $expToken = 3600;
     private bool $gotErrorRefreshToken = false;
     private bool $gotCognitoException = false;
+    private string $redirectLink = 'user_pool_id';
 
     public function decodeAccessToken($authToken)
     {
@@ -60,7 +61,7 @@ class AwsCognitoClient
     public function provider()
     {
         return new Provider(
-            'client_id', 'client_secret', 'region', 'user_pool_id'
+            'client_id', 'client_secret', 'region', $this->redirectLink
         );
     }
 
@@ -135,6 +136,12 @@ class AwsCognitoClient
     {
         $this->gotCognitoException = $gotCognitoException;
 
+        return $this;
+    }
+
+    public function setAppRedirectUri()
+    {   
+        $this->redirectLink = 'user_pool_id_deeplink';
         return $this;
     }
 }

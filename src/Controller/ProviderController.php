@@ -3,13 +3,14 @@ namespace Budgetcontrol\Authentication\Controller;
 
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Cache;
 use Budgetcontrol\Library\Model\User;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Facade;
+use Budgetcontrol\Authentication\Facade\Crypt;
+use Budgetcontrol\Connector\Factory\Workspace;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Budgetcontrol\Authentication\Facade\AwsCognitoClient;
-use Budgetcontrol\Connector\Factory\Workspace;
-use Budgetcontrol\Authentication\Facade\Crypt;
 
 class ProviderController {
 
@@ -24,9 +25,16 @@ class ProviderController {
     public function authenticateProvider(Request $request, Response $response, array $args)
     {
         $providerName = $args['provider'];
+        $queryParams = $request->getQueryParams();
 
         try {
-            $provider = AwsCognitoClient::provider();
+
+            $authCognito = Facade::getFacadeApplication()["aws-cognito-client"];
+            if($queryParams['device'] === 'android' || $queryParams['device'] === 'ios') {
+                $authCognito = $authCognito->setAppRedirectUri(env('AWS_COGNITO_REDIRECT_DEEPLINK'));
+            }
+
+            $provider = $authCognito->provider();
             $uri = $provider->$providerName(env('COGNITO_GOOGLE_AUTH_URL'));
 
         } catch (\Throwable $e) {
@@ -53,7 +61,12 @@ class ProviderController {
      */
     public function providerToken(Request $request, Response $response, array $args)
     {
-        $provider = $args['provider'];
+        $queryParams = $request->getQueryParams();
+        $isMobile = false;
+        if($queryParams['device'] === 'android' || $queryParams['device'] === 'ios') {
+            $isMobile = true;
+        }
+
         if(!isset($request->getQueryParams()['code'])) {
             return response([
                 'success' => false,
@@ -62,7 +75,7 @@ class ProviderController {
         }
 
         try {
-            $authResponse = $this->authenticate($request->getQueryParams()['code'],$provider);
+            $authResponse = $this->authenticate($request->getQueryParams()['code'], $isMobile);
 
         } catch (\Throwable $e) {
 
@@ -90,11 +103,13 @@ class ProviderController {
      * @param string $code The code to authenticate.
      * @return array The Authentication result and workspace result.
      */
-    private function authenticate(string $code, string $providerName): array
+    private function authenticate(string $code, bool $isMobile = false): array
     {
-        $provider = AwsCognitoClient::provider();
-        $params = $provider->getParams($providerName);
-        $tokens = AwsCognitoClient::authenticateProvider($code, $params['redirect_uri']);
+        if($isMobile) {
+            $tokens = $this->authenticateFromMobile($code);
+        } else {
+            $tokens = $this->authenticateFromWeb($code);
+        }
 
         // Decode ID Token
         $content = AwsCognitoClient::decodeAccessToken($tokens->id_token);
@@ -160,5 +175,29 @@ class ProviderController {
             throw new \Exception("Error creating workspace");
         }
 
+    }
+
+    /**
+     * Authenticates a user using a web form.
+     *
+     * @param string $code The authentication code provided by the user.
+     * @param string $providerName The name of the authentication provider.
+     */
+    private function authenticateFromWeb(string $code)
+    {
+        $tokens = AwsCognitoClient::authenticateProvider($code, env('AWS_COGNITO_REDIRECT_URI'));
+        return $tokens;
+    }
+
+    /**
+     * Authenticates a user from a mobile device using a provided code and provider name.
+     *
+     * @param string $code The authentication code provided by the mobile device.
+     * @param string $providerName The name of the authentication provider.
+     */
+    private function authenticateFromMobile(string $code)
+    {
+        $tokens = AwsCognitoClient::authenticateProvider($code, env('AWS_COGNITO_REDIRECT_DEEPLINK'));
+        return $tokens;
     }
 }
