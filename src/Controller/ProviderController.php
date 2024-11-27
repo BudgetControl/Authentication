@@ -108,7 +108,7 @@ class ProviderController {
         if($isMobile) {
             $tokens = $this->authenticateFromMobile($code);
         } else {
-            $tokens = $this->authenticateFormWeb($code);
+            $tokens = $this->authenticateFromWeb($code);
         }
 
         // Decode ID Token
@@ -183,7 +183,7 @@ class ProviderController {
      * @param string $code The authentication code provided by the user.
      * @param string $providerName The name of the authentication provider.
      */
-    private function authenticateFormWeb(string $code)
+    private function authenticateFromWeb(string $code)
     {
         $tokens = AwsCognitoClient::authenticateProvider($code, env('AWS_COGNITO_REDIRECT_URL'));
         return $tokens;
