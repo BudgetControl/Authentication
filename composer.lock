@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dabd8650727883afa1bff8e6df87797e",
+    "content-hash": "3b0c24056355365863d3a3e211b68375",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -348,16 +348,16 @@
         },
         {
             "name": "budgetcontrol/mailer",
-            "version": "v0.1",
+            "version": "v0.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/BudgetControl/MailerService.git",
-                "reference": "1988a53c3219aa4c0f39d80a9ec25f54052982e6"
+                "reference": "e7da4edb48c8caa1a0c348a79a875a24aa0a6301"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/BudgetControl/MailerService/zipball/1988a53c3219aa4c0f39d80a9ec25f54052982e6",
-                "reference": "1988a53c3219aa4c0f39d80a9ec25f54052982e6",
+                "url": "https://api.github.com/repos/BudgetControl/MailerService/zipball/e7da4edb48c8caa1a0c348a79a875a24aa0a6301",
+                "reference": "e7da4edb48c8caa1a0c348a79a875a24aa0a6301",
                 "shasum": ""
             },
             "require": {
@@ -388,10 +388,9 @@
             ],
             "description": "The MailerService library provides functionality for sending emails. It is used by the BC (Business Communication) module of the application.",
             "support": {
-                "source": "https://github.com/BudgetControl/MailerService/tree/v0.1",
-                "issues": "https://github.com/BudgetControl/MailerService/issues"
+                "source": "https://github.com/BudgetControl/MailerService/tree/v0.2.2"
             },
-            "time": "2024-09-06T10:33:08+00:00"
+            "time": "2024-09-27T15:15:46+00:00"
         },
         {
             "name": "budgetcontrol/schema-registry-service",
@@ -9955,6 +9954,6 @@
     "platform": {
         "php": "^8.2"
     },
-    "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "platform-dev": {},
+    "plugin-api-version": "2.6.0"
 }
