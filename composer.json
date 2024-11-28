@@ -66,7 +66,7 @@
         "malirobot/aws-cognito": "^v1.0",
         "budgetcontrol/libs-connector": "v1.0",
         "logtail/monolog-logtail": "^3.1",
-        "budgetcontrol/mailer": "^v0.1",
+        "budgetcontrol/mailer": "^v0.2",
         "budgetcontrol/library": "^v1.1",
         "budgetcontrol/schema-registry-service": "v1.0-beta",
         "budgetcontrol/seeds": "^v0.1",
