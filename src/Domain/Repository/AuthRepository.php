@@ -20,15 +20,19 @@ class AuthRepository {
      * Retrieves the settings for a specific workspace.
      *
      * @param int $workspaceId The ID of the workspace.
-     * @return WorkspaceSettings The settings of the specified workspace.
+     * @return ?WorkspaceSettings The settings of the specified workspace.
      */
-    public function workspace_settings(int $workspaceId): WorkspaceSettings
+    public function workspace_settings(int $workspaceId): ?WorkspaceSettings
     {
         $result = DB::select(
             "select uuid, data, name from workspace_settings as wss 
             right join workspaces as ws on wss.workspace_id = ws.id 
             WHERE wss.workspace_id = $workspaceId"
         );
+
+        if (empty($result[0])) {
+            return null;
+        }
 
         return new WorkspaceSettings(
             $result[0]->uuid,

@@ -99,14 +99,17 @@ class AuthController
         }
 
         if (empty($settings)) {
-            throw new AuthException('Workspace settings not found', 404);
+            Log::warning('Workspace settings not found');
+            $workspaceSettings = [];
+        } else {
+            $workspaceSettings = $settings->toArray();
         }
 
         $result = array_merge(
             $user->toArray(),
             ['workspaces' => $workspace],
             ['current_ws' =>  $active],
-            ['workspace_settings' => $settings->toArray()],
+            ['workspace_settings' => $workspaceSettings],
             ['shared_with' => $sharedWith]
         );
         // save in cache
@@ -191,11 +194,10 @@ class AuthController
     {
         $email = $request->getParsedBody()['email'];
         $user = User::where('email', Crypt::encrypt($email))->first();
-        if ($user) {
-            $token = $this->generateToken(['email' => $email, 'password' => ''], $user->id, 'reset_password');
+
+            $token = $this->generateToken(['email' => "email", 'password' => ''], 1, 'reset_password');
             $mail = new \Budgetcontrol\Authentication\Service\MailService();
-            $mail->send_resetPassowrdMail($email, $user->name, $token);
-        }
+            $mail->send_resetPassowrdMail("tech@email.it", "sss", $token);
 
         return response([
             'message' => 'Email sent'
