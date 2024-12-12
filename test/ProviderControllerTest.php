@@ -49,9 +49,9 @@ class ProviderControllerTest extends TestCase
         $request = $this->createMock(Request::class);
         $response = $this->createMock(Response::class);
         $args = ['provider' => 'google'];
-        $queryParams = [];
+        $queryParam = ['device' => 'android'];
 
-        $request->method('getQueryParams')->willReturn($queryParams);
+        $request->method('getQueryParams')->willReturn($queryParam);
 
         $controller = new ProviderController();
         $result = $controller->providerToken($request, $response, $args);
@@ -66,7 +66,8 @@ class ProviderControllerTest extends TestCase
         $response = $this->createMock(Response::class);
         $args = ['provider' => 'google'];
         $queryParams = [
-            'code' => 'valid_code'
+            'code' => 'valid_code',
+            'device' => 'android'
         ];
 
         $request->method('getQueryParams')->willReturn($queryParams);

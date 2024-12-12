@@ -24,7 +24,7 @@ class SignUpControllerTest extends BaseCase
 
         $name = 'John Doe';
         $email = 'john.doe@example.com';
-        $password = 'Password123';
+        $password = 'Password123@PswA#';
 
         $request->method('getParsedBody')->willReturn([
             'name' => $name,
