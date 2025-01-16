@@ -115,7 +115,7 @@ class SignUpController
             return response([
                 "success" => false,
                 "error" => "An error occurred try again"
-            ], 400);
+            ], 500);
         }
 
         //Redirect to view

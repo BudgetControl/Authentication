@@ -23,7 +23,7 @@ class SignUpControllerTest extends BaseCase
         $response = $this->createMock(Response::class);
 
         $name = 'John Doe';
-        $email = 'john.doe@example.com';
+        $email = uniqid().'@example.com';
         $password = 'Password123@PswA#';
 
         $request->method('getParsedBody')->willReturn([
