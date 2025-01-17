@@ -1,11 +1,9 @@
 <?php
 // Autoload Composer dependencies
 
-use Budgetcontrol\Connector\Factory\Workspace;
 use \Illuminate\Support\Carbon as Date;
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Validation\Validator;
-use Monolog\Level;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -49,6 +47,9 @@ require_once __DIR__ . '/../config/mail.php';
 // Set up cryptable facade
 require_once __DIR__ . '/../config/cryptable.php';
 
+/** Budget Control connector */
+require_once __DIR__ . '/../config/bc-connector.php';
+
 // Set up the Facade application
 Facade::setFacadeApplication([
     'log' => $logger,
@@ -57,6 +58,6 @@ Facade::setFacadeApplication([
     'validator' => $validator,
     'aws-cognito-client' => $awsCognitoClient,
     'mail' => $mail,
-    'workspace' => Workspace::class,
+    'bc-connector' => $connector,
     'crypt' => $crypt,
 ]);

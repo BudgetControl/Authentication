@@ -33,8 +33,8 @@ class BaseCase extends \PHPUnit\Framework\TestCase
                 [],
                 []
             ),
+            'bc-connector' => new \Budgetcontrol\Test\Libs\MicroserviceClient(),
             'mail' => new ClientMail(),
-            'workspace' => new \Budgetcontrol\Test\Libs\Workspace(),
             'crypt' => new \BudgetcontrolLibs\Crypt\Service\CryptableService(
                 env('APP_KEY')
             )

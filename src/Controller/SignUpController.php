@@ -13,6 +13,8 @@ namespace Budgetcontrol\Authentication\Controller;
  */
 
 use Budgetcontrol\Library\Model\User;
+use Budgetcontrol\Authentication\Facade\ConnectorClient;
+
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Illuminate\Support\Facades\Validator;
@@ -89,12 +91,7 @@ class SignUpController
                     'description' => "Default workspace",
                 ];
 
-                /** @√ar \Budgetcontrol\Connector\Model\Response $connector */
-                $connector = Workspace::init('POST', $wsPayload)->call('/add', $user->id);
-                $workspace = $connector->getBody()['workspace'];
-                
-                Workspace::init('PATCH',[],[])->call('/'.$workspace['uuid'].'/activate', $user->id);
-                
+                $connector = ConnectorClient::workspace()->add($wsPayload, $user->id);
                 if ($connector->getStatusCode() != 201) {
                     Log::critical("Error creating workspace");
                     throw new \Exception("Error creating workspace");
@@ -115,7 +112,7 @@ class SignUpController
             return response([
                 "success" => false,
                 "error" => "An error occurred try again"
-            ], 500);
+            ], 400);
         }
 
         //Redirect to view
