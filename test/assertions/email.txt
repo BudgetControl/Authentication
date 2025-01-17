@@ -1,4 +1,4 @@
-67891bf1bd727@example.comSign Up Confirmation<!DOCTYPE html>
+678a5ada969d6@example.comSign Up Confirmation<!DOCTYPE html>
 <html lang="it">
 <head>
     <meta charset="UTF-8">
@@ -97,9 +97,9 @@
                 have you on board and help you effectively manage your household finances.</p>
             <br />
             <p>To complete your registration and activate your email address, please follow the steps below:</p>
-            <p>Click on the following <a href="https://app.budgetcontrol.cloud/app/auth/confirm/25ab5413e3121dc669e5f8a72fd96f77d0acce84">link</a> to activate your email address:</p>
+            <p>Click on the following <a href="https://app.budgetcontrol.cloud/app/auth/confirm/050ffa227847e6fcef841969edeb658a34ae6fe0">link</a> to activate your email address:</p>
             <br />
-            <a href="https://app.budgetcontrol.cloud/app/auth/confirm/25ab5413e3121dc669e5f8a72fd96f77d0acce84" target="_blank"
+            <a href="https://app.budgetcontrol.cloud/app/auth/confirm/050ffa227847e6fcef841969edeb658a34ae6fe0" target="_blank"
                 class="button">
                 Confirm Email
             </a>
@@ -132,7 +132,7 @@
 
 <footer>
     <div>
-    <p>This email was sent to 67891bf1bd727@example.com. Please don't reply to this email directly.</p>
+    <p>This email was sent to 678a5ada969d6@example.com. Please don't reply to this email directly.</p>
 <p>For further assistance, please visit our help desk. You got this message because you signed up to receive BudgetControl emails. If you don't want to receive marketing from BudgetControl in the future, you can unsubscribe.</p>
 
 <p class="small-text credits">

@@ -1,10 +1,7 @@
 <?php
 
-use Budgetcontrol\Connector\Entities\MsDomains;
-use Budgetcontrol\Connector\Factory\MicroserviceClient;
-
-$connector = new MicroserviceClient(
-    new MsDomains(
+$connector = new \Budgetcontrol\Connector\Factory\MicroserviceClient(
+    new \Budgetcontrol\Connector\Entities\MsDomains(
         'http://budgetcontrol-ms-workspace',
         'http://budgetcontrol-ms-wallets',
         'http://budgetcontrol-ms-entries',
