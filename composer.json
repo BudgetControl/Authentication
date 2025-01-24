@@ -64,20 +64,20 @@
         "predis/predis": "2.2.2",
         "mlabfactory/libs-mailer": "v1.1.4",
         "malirobot/aws-cognito": "^v1.0",
-        "budgetcontrol/libs-connector": "v1.0",
         "logtail/monolog-logtail": "^3.1",
         "budgetcontrol/mailer": "^v0.2",
         "budgetcontrol/library": "^v1.1",
-        "budgetcontrol/schema-registry-service": "v1.0-beta",
-        "budgetcontrol/seeds": "^v0.1",
-        "budgetcontrol/cryptable": "^v0.1"
+        "budgetcontrol/cryptable": "^v0.1",
+        "budgetcontrol/connector": "v2.0.1-beta"
     },
     "require-dev": {
         "nikic/php-parser": "^5.0",
         "phpunit/phpunit": "^11.0",
         "fakerphp/faker": "^1.23",
         "mlabfactory/phpunit-self-api-integration": "v1.1.1-beta",
-        "mockery/mockery": "^1.6"
+        "mockery/mockery": "^1.6",
+        "budgetcontrol/schema-registry-service": "^v1.0.3",
+        "budgetcontrol/seeds": "^0.2.2"
     },
     "autoload": {
         "psr-4": {
@@ -94,6 +94,6 @@
             "email": "marco.defelice@mlabfactory.it"
         }
     ],
-    "minimum-stability": "stable",
+    "minimum-stability": "beta",
     "prefer-stable": true
 }

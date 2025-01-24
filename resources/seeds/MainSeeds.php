@@ -221,6 +221,7 @@ class MainSeeds extends AbstractSeed
 
         ModelsSeed::create(Model::class, [
             "name" => "test",
+            "amount" => 300,
             "note" => "test",
             "category_id" => 12,
             "account_id" => 1,

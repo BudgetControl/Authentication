@@ -70,6 +70,8 @@ class AuthController
         \Illuminate\Support\Facades\Log::debug('Decoded token: ' . json_encode($decodedToken));
 
         $idToken = Cache::get($decodedToken['sub'] . 'id_token');
+        $username = $decodedToken['username'];
+
         if (empty($idToken)) {
             throw new AuthException('Invalid id token token', 401);
         }
@@ -110,7 +112,8 @@ class AuthController
             ['workspaces' => $workspace],
             ['current_ws' =>  $active],
             ['workspace_settings' => $workspaceSettings],
-            ['shared_with' => $sharedWith]
+            ['shared_with' => $sharedWith],
+            ['username' => $username]
         );
         // save in cache
         Cache::put($decodedToken['sub'] . 'user_info', $result, Carbon::now()->addDays(1));
