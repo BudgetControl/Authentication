@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c4a06f6b2b21e5c9ecd850b5d26aa3d7",
+    "content-hash": "2f6abfd45b1c497e03446efd957d100e",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -216,6 +216,54 @@
             "time": "2023-11-29T23:19:16+00:00"
         },
         {
+            "name": "budgetcontrol/connector",
+            "version": "v2.0.1-beta",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/BudgetControl/BcConnector.git",
+                "reference": "bb07e74648c2adff6584a5fd8ea180c6ecaf518c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/BudgetControl/BcConnector/zipball/bb07e74648c2adff6584a5fd8ea180c6ecaf518c",
+                "reference": "bb07e74648c2adff6584a5fd8ea180c6ecaf518c",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^7.8",
+                "monolog/monolog": "^3.5",
+                "php": "^8.1",
+                "psr/log": "^3.0",
+                "slim/psr7": "1.6",
+                "vlucas/phpdotenv": "^5.6"
+            },
+            "require-dev": {
+                "fakerphp/faker": "^1.23",
+                "nikic/php-parser": "^5.0",
+                "phpunit/phpunit": "^10.0"
+            },
+            "type": "none",
+            "autoload": {
+                "psr-4": {
+                    "Budgetcontrol\\Connector\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marco De Felice",
+                    "email": "marco.defelice@mlabfactory.it"
+                }
+            ],
+            "description": "defines the dependencies required for a PHP library in a Budget control application",
+            "support": {
+                "source": "https://github.com/BudgetControl/BcConnector/tree/v2.0.1-beta"
+            },
+            "time": "2025-01-17T13:28:55+00:00"
+        },
+        {
             "name": "budgetcontrol/cryptable",
             "version": "v0.1",
             "source": {
@@ -296,55 +344,6 @@
                 "source": "https://github.com/BudgetControl/Library/tree/v1.1.0"
             },
             "time": "2024-09-16T08:45:49+00:00"
-        },
-        {
-            "name": "budgetcontrol/libs-connector",
-            "version": "v1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/BudgetControl/Libs_BcConnector.git",
-                "reference": "08f14ef0c419a0e894653587f6c4491d809ac0d1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/BudgetControl/Libs_BcConnector/zipball/08f14ef0c419a0e894653587f6c4491d809ac0d1",
-                "reference": "08f14ef0c419a0e894653587f6c4491d809ac0d1",
-                "shasum": ""
-            },
-            "require": {
-                "guzzlehttp/guzzle": "^7.8",
-                "monolog/monolog": "^3.5",
-                "php": "^8.1",
-                "psr/log": "^3.0",
-                "slim/psr7": "1.6",
-                "vlucas/phpdotenv": "^5.6"
-            },
-            "require-dev": {
-                "fakerphp/faker": "^1.23",
-                "nikic/php-parser": "^5.0",
-                "phpunit/phpunit": "^10.0"
-            },
-            "type": "none",
-            "autoload": {
-                "psr-4": {
-                    "Budgetcontrol\\Connector\\": "src/"
-                }
-            },
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Marco De Felice",
-                    "email": "marco.defelice@mlabfactory.it"
-                }
-            ],
-            "description": "defines the dependencies required for a PHP library in a Budget control application",
-            "support": {
-                "source": "https://github.com/BudgetControl/Libs_BcConnector/tree/v1.0",
-                "issues": "https://github.com/BudgetControl/Libs_BcConnector/issues"
-            },
-            "time": "2024-06-07T11:38:43+00:00"
         },
         {
             "name": "budgetcontrol/mailer",
@@ -9944,8 +9943,9 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "stable",
+    "minimum-stability": "beta",
     "stability-flags": {
+        "budgetcontrol/connector": 10,
         "mlabfactory/phpunit-self-api-integration": 10
     },
     "prefer-stable": true,
