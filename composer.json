@@ -64,12 +64,12 @@
         "predis/predis": "2.2.2",
         "mlabfactory/libs-mailer": "v1.1.4",
         "malirobot/aws-cognito": "^v1.0",
-        "budgetcontrol/libs-connector": "v1.0",
         "logtail/monolog-logtail": "^3.1",
         "budgetcontrol/mailer": "^v0.2",
         "budgetcontrol/library": "^v1.1",
         "budgetcontrol/seeds": "^v0.1",
-        "budgetcontrol/cryptable": "^v0.1"
+        "budgetcontrol/cryptable": "^v0.1",
+        "budgetcontrol/connector": "v2.0.1-beta"
     },
     "require-dev": {
         "nikic/php-parser": "^5.0",
@@ -94,6 +94,6 @@
             "email": "marco.defelice@mlabfactory.it"
         }
     ],
-    "minimum-stability": "stable",
+    "minimum-stability": "beta",
     "prefer-stable": true
 }
