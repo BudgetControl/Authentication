@@ -23,7 +23,6 @@ use Budgetcontrol\Authentication\Facade\AwsCognitoClient;
 use Budgetcontrol\Authentication\Traits\AuthFlow;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
-use Budgetcontrol\Connector\Factory\Workspace;
 use Budgetcontrol\Authentication\Facade\Crypt;
 
 class SignUpController

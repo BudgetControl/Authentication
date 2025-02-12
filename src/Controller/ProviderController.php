@@ -7,9 +7,9 @@ use Budgetcontrol\Library\Model\User;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Facade;
 use Budgetcontrol\Authentication\Facade\Crypt;
-use Budgetcontrol\Connector\Factory\Workspace;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use Budgetcontrol\Authentication\Facade\ConnectorClient;
 use Budgetcontrol\Authentication\Facade\AwsCognitoClient;
 
 class ProviderController {
@@ -165,10 +165,11 @@ class ProviderController {
         ];
 
         /** @var \Budgetcontrol\Connector\Model\Response $connector */
-        $connector = Workspace::init('POST', $wsPayload)->call('/add', $user->id);
-        $workspace = $connector->getBody()['workspace'];
-        
-        Workspace::init('PATCH',[],[])->call('/'.$workspace['uuid'].'/activate', $user->id);
+        $connector = ConnectorClient::workspace()->add($wsPayload, $user->id);
+        if ($connector->getStatusCode() != 201) {
+            Log::critical("Error creating workspace");
+            throw new \Exception("Error creating workspace");
+        }
         
         if ($connector->getStatusCode() != 201) {
             Log::critical("Error creating workspace");
