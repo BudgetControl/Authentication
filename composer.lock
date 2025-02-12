@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "95230d95738d7c786f6bc90dd1feadab",
+    "content-hash": "e7bebb084d0b7b5eab6f6e2019ba13b0",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -217,16 +217,16 @@
         },
         {
             "name": "budgetcontrol/connector",
-            "version": "v2.0.1-beta",
+            "version": "v2.0.2-beta",
             "source": {
                 "type": "git",
                 "url": "https://github.com/BudgetControl/BcConnector.git",
-                "reference": "bb07e74648c2adff6584a5fd8ea180c6ecaf518c"
+                "reference": "f37177ea2db2c6ddaa53863a1c4fa696531d4ef8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/BudgetControl/BcConnector/zipball/bb07e74648c2adff6584a5fd8ea180c6ecaf518c",
-                "reference": "bb07e74648c2adff6584a5fd8ea180c6ecaf518c",
+                "url": "https://api.github.com/repos/BudgetControl/BcConnector/zipball/f37177ea2db2c6ddaa53863a1c4fa696531d4ef8",
+                "reference": "f37177ea2db2c6ddaa53863a1c4fa696531d4ef8",
                 "shasum": ""
             },
             "require": {
@@ -259,9 +259,9 @@
             ],
             "description": "defines the dependencies required for a PHP library in a Budget control application",
             "support": {
-                "source": "https://github.com/BudgetControl/BcConnector/tree/v2.0.1-beta"
+                "source": "https://github.com/BudgetControl/BcConnector/tree/v2.0.2-beta"
             },
-            "time": "2025-01-17T13:28:55+00:00"
+            "time": "2025-02-12T17:55:32+00:00"
         },
         {
             "name": "budgetcontrol/cryptable",
