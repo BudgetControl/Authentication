@@ -90,7 +90,7 @@ class SignUpController
                     'description' => "Default workspace",
                 ];
 
-                $connector = ConnectorClient::workspace()->add($wsPayload, $user->id);
+                $connector = ConnectorClient::workspace()->add($user->id, $wsPayload);
                 if ($connector->getStatusCode() != 201) {
                     Log::critical("Error creating workspace");
                     throw new \Exception("Error creating workspace");
