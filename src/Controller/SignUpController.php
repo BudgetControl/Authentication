@@ -2,16 +2,6 @@
 
 namespace Budgetcontrol\Authentication\Controller;
 
-/** ########## DOCUMENTATION
- * 
- * This class is responsible for handling the sign up functionality.
- * follow these steps to signup user
- * - 1. create user
- * - 2. create workspace entry
- * - 3. create account entry
- * - 4. create default settings
- */
-
 use Budgetcontrol\Library\Model\User;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -21,8 +11,9 @@ use Budgetcontrol\Authentication\Facade\AwsCognitoClient;
 use Budgetcontrol\Authentication\Traits\AuthFlow;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
-use Budgetcontrol\Connector\Factory\Workspace;
 use Budgetcontrol\Authentication\Facade\Crypt;
+use Budgetcontrol\Authentication\Service\MailService;
+use Ramsey\Uuid\Uuid;
 
 class SignUpController
 {
@@ -31,79 +22,42 @@ class SignUpController
     const URL_SIGNUP_CONFIRM = '/app/auth/confirm/';
     const PASSWORD_VALIDATION = '/^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[A-Z])(?=.*[a-z]).{8,}$/';
 
-    /**
-     * Handles the sign up functionality.
-     *
-     * @param Request $request The HTTP request object.
-     * @param Response $response The HTTP response object.
-     * @param array $args The route parameters.
-     * @return Response The HTTP response object.
-     */
+    protected $mailService;
+
+    public function __construct(MailService $mailService)
+    {
+        $this->mailService = $mailService;
+    }
+
     public function signUp(Request $request, Response $response, array $args)
     {
-        try {
-            Validator::validate([
-                'name' => 'required|max:255',
-                'email' => 'required|email|max:64|unique:users',
-                'password' => 'sometimes|confirmed|min:6|max:64|regex:' . self::PASSWORD_VALIDATION,
-            ]);
-        } catch (\Throwable $e) {
-            return response(['error' => $e->getMessage()], 400);
-        }
-
         $params = $request->getParsedBody();
 
-        //save in cache user password
-        $collection = collect([
-            'name' => $params["name"],
-            'email' => $params["email"],
-            'password' => generateRandomPassword()
-        ]);
+        if (!$this->validateSignUp($params)) {
+            return response(['error' => 'Validation failed'], 400);
+        }
 
-        $data = $collection->only('name', 'email', 'password');
-
-        //check if user already exist
         if (User::where('email', Crypt::encrypt($params["email"]))->exists()) {
             Log::info("User already exists");
             return response([
                 "success" => false,
-                "error" => "Generic error occurred, try again later."
+                "error" => "User already exists."
             ], 400);
         }
 
         try {
-
-            if ($cognito = $this->createCognitoUser($data)) { //
-
-                //If successful, create the user in local db
-                $user = new User();
-                $user->name = $params["name"];
-                $user->email = $params["email"];
-                $user->password = $data['password'];
-                $user->sub = $cognito['User']['Username'];
-                $user->uuid = \Ramsey\Uuid\Uuid::uuid4()->toString();
-                $user->save();
-
-                $wsPayload = [
-                    'name' => "Workspace",
-                    'description' => "Default workspace",
-                ];
-
-                $token = $this->generateToken($params, $user->id);
-                
-                $mail = new \Budgetcontrol\Authentication\Service\MailService();
-                $mail->send_signUpMail($params["email"], $user->name, $token);
-            }
+            $user = $this->createUser($params);
+            $token = $this->generateToken($params, $user->id);
+            $this->mailService->send_signUpMail($params["email"], $user->name, $token);
         } catch (\Throwable $e) {
-            //If an error occurs, delete the user from cognito
             Log::critical($e->getMessage());
             AwsCognitoClient::deleteUser($params["email"]);
-            User::find($user->id)->delete();
-
-            //Redirect to view
+            if (isset($user)) {
+                User::find($user->id)->delete();
+            }
             return response([
                 "success" => false,
-                "error" => "An error occurred try again"
+                "error" => "An error occurred, try again."
             ], 400);
         }
 
@@ -116,11 +70,44 @@ class SignUpController
             return response(["error" => "Token is not valid or expired"], 400);
         }
 
-        //Redirect to view
         return response([
-            "success" => "Registration successfully",
-            "details" => $cognito
+            "success" => "Registration successful",
+            "details" => $user
         ], 201);
+    }
+
+    protected function validateSignUp(array $params)
+    {
+        try {
+            Validator::validate($params, [
+                'name' => 'required|max:255',
+                'email' => 'required|email|max:64|unique:users',
+                'password' => 'sometimes|confirmed|min:6|max:64|regex:' . self::PASSWORD_VALIDATION,
+            ]);
+            return true;
+        } catch (\Throwable $e) {
+            Log::error($e->getMessage());
+            return false;
+        }
+    }
+
+    protected function createUser(array $params)
+    {
+        $data = collect($params)->only('name', 'email', 'password');
+
+        if ($cognito = $this->createCognitoUser($data)) {
+            $user = new User();
+            $user->name = $params["name"];
+            $user->email = $params["email"];
+            $user->password = $data['password'];
+            $user->sub = $cognito['User']['Username'];
+            $user->uuid = Uuid::uuid4()->toString();
+            $user->save();
+
+            return $user;
+        }
+
+        throw new \Exception("Failed to create Cognito user");
     }
 
     public function confirmToken(Request $request, Response $response, array $args)
@@ -134,7 +121,7 @@ class SignUpController
         $user = Cache::get($token);
         if (empty($user)) {
             Log::critical("User not found");
-            return response(["error" => "Ops an error occurred"], 400);
+            return response(["error" => "An error occurred"], 400);
         }
 
         $user = User::find($user->id);
