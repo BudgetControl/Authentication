@@ -89,19 +89,8 @@ class SignUpController
                     'description' => "Default workspace",
                 ];
 
-                /** @√ar \Budgetcontrol\Connector\Model\Response $connector */
-                $connector = Workspace::init('POST', $wsPayload)->call('/add', $user->id);
-                $workspace = $connector->getBody()['workspace'];
-                
-                Workspace::init('PATCH',[],[])->call('/'.$workspace['uuid'].'/activate', $user->id);
-                
-                if ($connector->getStatusCode() != 201) {
-                    Log::critical("Error creating workspace");
-                    throw new \Exception("Error creating workspace");
-                }
-
                 $token = $this->generateToken($params, $user->id);
-
+                
                 $mail = new \Budgetcontrol\Authentication\Service\MailService();
                 $mail->send_signUpMail($params["email"], $user->name, $token);
             }
