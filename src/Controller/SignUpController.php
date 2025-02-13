@@ -118,6 +118,15 @@ class SignUpController
             ], 400);
         }
 
+        try {
+            AwsCognitoClient::setUserEmailVerified($user->email);
+            AwsCognitoClient::setUserPassword($user->email, $user->password, true);
+        } catch (\Throwable $e) {
+            Log::critical($e->getMessage());
+            Cache::forget($token);
+            return response(["error" => "Token is not valid or expired"], 400);
+        }
+
         //Redirect to view
         return response([
             "success" => "Registration successfully",
@@ -137,15 +146,6 @@ class SignUpController
         if (empty($user)) {
             Log::critical("User not found");
             return response(["error" => "Ops an error occurred"], 400);
-        }
-
-        try {
-            AwsCognitoClient::setUserEmailVerified($user->email);
-            AwsCognitoClient::setUserPassword($user->email, $user->password, true);
-        } catch (\Throwable $e) {
-            Log::critical($e->getMessage());
-            Cache::forget($token);
-            return response(["error" => "Token is not valid or expired"], 400);
         }
 
         $user = User::find($user->id);
