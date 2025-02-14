@@ -57,7 +57,7 @@ class SignUpController
         $collection = collect([
             'name' => $params["name"],
             'email' => $params["email"],
-            'password' => generateRandomPassword()
+            'password' => $params["password"]
         ]);
 
         $data = $collection->only('name', 'email', 'password');
@@ -84,24 +84,7 @@ class SignUpController
                 $user->uuid = \Ramsey\Uuid\Uuid::uuid4()->toString();
                 $user->save();
 
-                $wsPayload = [
-                    'name' => "Workspace",
-                    'description' => "Default workspace",
-                ];
-
-                /** @√ar \Budgetcontrol\Connector\Model\Response $connector */
-                $connector = Workspace::init('POST', $wsPayload)->call('/add', $user->id);
-                $workspace = $connector->getBody()['workspace'];
-                
-                Workspace::init('PATCH',[],[])->call('/'.$workspace['uuid'].'/activate', $user->id);
-                
-                if ($connector->getStatusCode() != 201) {
-                    Log::critical("Error creating workspace");
-                    throw new \Exception("Error creating workspace");
-                }
-
                 $token = $this->generateToken($params, $user->id);
-
                 $mail = new \Budgetcontrol\Authentication\Service\MailService();
                 $mail->send_signUpMail($params["email"], $user->name, $token);
             }
@@ -116,6 +99,15 @@ class SignUpController
                 "success" => false,
                 "error" => "An error occurred try again"
             ], 400);
+        }
+
+        try {
+            AwsCognitoClient::setUserEmailVerified($user->email);
+            AwsCognitoClient::setUserPassword($user->email, $user->password, true);
+        } catch (\Throwable $e) {
+            Log::critical($e->getMessage());
+            Cache::forget($token);
+            return response(["error" => "Token is not valid or expired"], 400);
         }
 
         //Redirect to view
@@ -137,15 +129,6 @@ class SignUpController
         if (empty($user)) {
             Log::critical("User not found");
             return response(["error" => "Ops an error occurred"], 400);
-        }
-
-        try {
-            AwsCognitoClient::setUserEmailVerified($user->email);
-            AwsCognitoClient::setUserPassword($user->email, $user->password, true);
-        } catch (\Throwable $e) {
-            Log::critical($e->getMessage());
-            Cache::forget($token);
-            return response(["error" => "Token is not valid or expired"], 400);
         }
 
         $user = User::find($user->id);
