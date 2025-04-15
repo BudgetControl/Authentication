@@ -51,6 +51,7 @@ class AuthRepository {
 
         foreach ($results as $key => $result) {
             $result->email = Crypt::decrypt($result->email);
+            $result->name = Crypt::decrypt($result->name);
             if($result->email === false) {
                 unset($results[$key]);
             }
