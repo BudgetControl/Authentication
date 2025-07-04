@@ -33,3 +33,4 @@
 storage/*
 Test.php
 .serverless/*
+.env.*

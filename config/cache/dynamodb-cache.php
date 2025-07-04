@@ -2,8 +2,8 @@
 
 $config = [
     'credentials' => [
-        'key' => env('AWS_ACCESS_KEY_ID', ''),
-        'secret' => env('AWS_SECRET_ACCESS_KEY', ''),
+        'key' => env('AWS_COGNITO_ACCESS_KEY_ID', ''),
+        'secret' => env('AWS_COGNITO_SECRET_ACCESS_KEY', ''),
     ],
     'region' => env('AWS_COGNITO_REGION','us-east-1'),
     'version' => env('AWS_COGNITO_VERSION','latest'),
