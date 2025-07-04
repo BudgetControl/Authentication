@@ -32,16 +32,13 @@ switch(env('APP_LOG_LEVEL','debug')) {
 }
 
 //setup log with BetterStack
-$logger = new \Monolog\Logger('MS-AUTH');
+$logger = new \Monolog\Logger('MS-STATS');
 
 // log on FS
 $logPath = env('APP_LOG_PATH',__DIR__.'/../storage/logs/log-'.date("Ymd").'.log');
 $streamHandler = new \Monolog\Handler\StreamHandler($logPath, $logLevel);
 
 $formatter = new \Monolog\Formatter\LineFormatter('[%channel%][%level_name%] %message% %context% %extra%\n');
-$formatter->setJsonPrettyPrint(true);
-$formatter->includeStacktraces(true);
-
 $streamHandler->setFormatter($formatter);
 $logger->pushHandler($streamHandler);
 
