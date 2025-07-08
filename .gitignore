@@ -3,6 +3,7 @@
 .DS_Store
 /.htaccess
 .env
+.env.*
 .log
 
 /tmp/*
@@ -32,3 +33,5 @@
 *.log
 storage/*
 Test.php
+.serverless/*
+.env.*
