@@ -218,7 +218,7 @@ class AuthController
     public function userInfoByEmail(Request $request, Response $response, array $args)
     {
         $email = $args['email'];
-        $user = User::where('email', Crypt::encrypt($email))->first();
+        $user = User::where('email', $email)->first();
         if (!$user) {
             throw new AuthException('User not found', 404);
         }

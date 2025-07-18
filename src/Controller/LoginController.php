@@ -22,6 +22,11 @@ class LoginController
         try {
             $userAuth = AwsCognitoClient::setBoolClientSecret()->authenticate($user, $password);
 
+            Log::debug('User authentication attempt', [
+                'user' => $user,
+                'auth_result' => $userAuth
+            ]);
+
             // decode auth token
             $decodedToken = AwsCognitoClient::decodeAccessToken($userAuth['AccessToken']);
             $sub = $decodedToken['sub'];
@@ -29,12 +34,20 @@ class LoginController
             \Illuminate\Support\Facades\Log::debug('Decoded token: ' . json_encode($decodedToken));
 
             if (!empty($userAuth['error'])) {
+                Log::error('Authentication error: ' . $userAuth['error'], [
+                    'user' => $user,
+                    'error' => $userAuth['error']
+                ]);
                 return response([
                     'success' => false,
                     'message' => 'User not authenticated'
                 ], 401);
             }
         } catch (\Throwable $e) {
+            Log::critical('Authentication error: ' . $e->getMessage(), [
+                'user' => $user,
+                'exception' => $e
+            ]);
             return response([
                 'success' => false,
                 'message' => 'User not authenticated'

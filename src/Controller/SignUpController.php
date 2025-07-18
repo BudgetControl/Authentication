@@ -91,6 +91,7 @@ class SignUpController
         } catch (\Throwable $e) {
             //If an error occurs, delete the user from cognito
             Log::critical($e->getMessage());
+            //FIXME: implement user deletion from cognito
             AwsCognitoClient::deleteUser($params["email"]);
             User::find($user->id)->delete();
 
