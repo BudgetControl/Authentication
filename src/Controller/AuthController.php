@@ -75,6 +75,8 @@ class AuthController
         if (empty($idToken)) {
             throw new AuthException('Invalid id token token', 401);
         }
+
+        $userInfo = $this->getUserCognito($username);
         $decodedIdToken = AwsCognitoClient::decodeAccessToken($idToken);
 
         $user = User::where("email", Crypt::encrypt($decodedIdToken['email']))->first();
@@ -113,7 +115,8 @@ class AuthController
             ['current_ws' =>  $active],
             ['workspace_settings' => $workspaceSettings],
             ['shared_with' => $sharedWith],
-            ['username' => $username]
+            ['username' => $username],
+            ['user_info' => $userInfo]
         );
         // save in cache
         Cache::put($decodedToken['sub'] . 'user_info', $result, Carbon::now()->addDays(1));
@@ -218,7 +221,7 @@ class AuthController
     public function userInfoByEmail(Request $request, Response $response, array $args)
     {
         $email = $args['email'];
-        $user = User::where('email', $email)->first();
+        $user = User::where('email', Crypt::encrypt($email))->first();
         if (!$user) {
             throw new AuthException('User not found', 404);
         }
@@ -227,5 +230,25 @@ class AuthController
             $user->toArray(),
             200
         );
+    }
+
+    /**
+     * Retrieves user information from AWS Cognito based on the provided email address.
+     *
+     * @param string $email The email address of the user to retrieve from Cognito.
+     * @return mixed Returns user data from Cognito on success, or null/throws exception on failure.
+     */
+    private function getUserCognito(string $username)
+    {
+        try {
+            $user = AwsCognitoClient::getUser($username);
+            return $user;
+        } catch (\Throwable $e) {
+            Log::critical('Error retrieving user from Cognito: ' . $e->getMessage(), [
+                'username' => $username,
+                'exception' => $e
+            ]);
+            throw new AuthException('Error retrieving user from Cognito', 500);
+        }
     }
 }
