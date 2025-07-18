@@ -1,6 +1,9 @@
 service: budgetcontrol-ms-authentication
 provider:
   name: aws
+  environment:
+    BREF_FPM_TIMEOUT: 10000
+    APP_ENV: dev
   region: eu-west-1
   runtime: provided.al2
   deploymentBucket:
