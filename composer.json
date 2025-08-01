@@ -70,7 +70,8 @@
         "budgetcontrol/library": "^v1.1",
         "budgetcontrol/schema-registry-service": "v1.0-beta",
         "budgetcontrol/seeds": "^v0.1",
-        "budgetcontrol/cryptable": "^v0.1"
+        "budgetcontrol/cryptable": "^v0.1",
+        "bref/bref": "~2.4.1"
     },
     "require-dev": {
         "nikic/php-parser": "^5.0",

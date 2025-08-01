@@ -1,6 +1,7 @@
 service: budgetcontrol-ms-authentication
 provider:
   name: aws
+  timeout: 60
   environment:
     BREF_FPM_TIMEOUT: 10000
     APP_ENV: dev
@@ -12,6 +13,7 @@ plugins:
   - ./vendor/bref/bref
 functions:
   web:
+    timeout: 60
     handler: public/index.php
     layers:
       - arn:aws:lambda:eu-west-1:534081306603:layer:php-82-fpm:99

@@ -79,6 +79,18 @@ class AwsCognitoClient
         ];
     }
 
+    public function getUser($username)
+    {
+        return [
+            'Username' => $username,
+            'UserAttributes' => [
+                'email' => '<Email>',
+                'sub' => '<Sub>',
+                'custom:type' => 'premium'
+            ]
+        ];
+    }
+
     public function authenticateProvider()
     {
         return $this->authenticate();

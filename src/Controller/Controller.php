@@ -15,4 +15,14 @@ class Controller {
             'message' => 'Authentication service is up and running'
         ]);
     }
+
+    protected function getAttributeFromCognito(array $userInfo, string $attributeName): ?string
+    {
+        foreach ($userInfo['UserAttributes'] as $attribute) {
+            if ($attribute['Name'] === $attributeName) {
+                return $attribute['Value'];
+            }
+        }
+        return null;
+    }
 }

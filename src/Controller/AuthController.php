@@ -9,6 +9,7 @@ use Budgetcontrol\Authentication\Traits\AuthFlow;
 use Psr\Http\Message\ResponseInterface as Response;
 use Budgetcontrol\Library\Model\User;
 use Budgetcontrol\Authentication\Domain\Repository\AuthRepository;
+use Budgetcontrol\Authentication\Entities\UserCognitoData;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Budgetcontrol\Authentication\Exception\AuthException;
 use Budgetcontrol\Authentication\Facade\AwsCognitoClient;
@@ -16,9 +17,14 @@ use League\Container\Exception\NotFoundException;
 use Budgetcontrol\Authentication\Facade\Crypt;
 use Illuminate\Support\Facades\Log;
 
-class AuthController
+class AuthController extends Controller
 {
     use AuthFlow;
+
+    const USER_ATTRIBUTES = [
+        'email_verified',
+        'custom:type'
+    ];
 
     public function check(Request $request, Response $response, array $args)
     {
@@ -77,6 +83,16 @@ class AuthController
         }
 
         $userInfo = $this->getUserCognito($username);
+        $userCognitoData = UserCognitoData::create(
+            $userInfo['Username'],
+            $this->getAttributeFromCognito($userInfo, 'email'),
+            $this->getAttributeFromCognito($userInfo, 'sub')
+        );
+
+        foreach (self::USER_ATTRIBUTES as $attribute) {
+            $userCognitoData->setAttribute($attribute, $this->getAttributeFromCognito($userInfo, $attribute));
+        }
+
         $decodedIdToken = AwsCognitoClient::decodeAccessToken($idToken);
 
         $user = User::where("email", Crypt::encrypt($decodedIdToken['email']))->first();
@@ -116,7 +132,7 @@ class AuthController
             ['workspace_settings' => $workspaceSettings],
             ['shared_with' => $sharedWith],
             ['username' => $username],
-            ['user_info' => $userInfo]
+            ['user_info' => $userCognitoData->getAttribute()]
         );
         // save in cache
         Cache::put($decodedToken['sub'] . 'user_info', $result, Carbon::now()->addDays(1));
