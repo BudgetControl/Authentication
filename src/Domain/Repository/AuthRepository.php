@@ -9,9 +9,9 @@ class AuthRepository {
 
     public function workspaces(int $userId) {
        return DB::select(
-            'select * from workspaces as w 
-            inner join workspaces_users_mm as ws on ws.workspace_id = w.id
-            where ws.user_id = ?',
+            ' SELECT DISTINCT w.id as workspace_id, w.name, w.description, w.current, w.created_at, w.uuid, w.user_id
+            FROM workspaces AS w INNER JOIN workspaces_users_mm AS ws ON ws.workspace_id = w.id
+            WHERE ws.user_id = ? and w.deleted_at is null',
             [$userId]
        );
     }

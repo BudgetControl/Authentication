@@ -84,7 +84,6 @@ class AuthController
             throw new NotFoundException("User not found", 404);
         }
 
-        $user = User::find($userId);
         $workspace = $repository->workspaces($userId);
 
         $active = '';
