@@ -35,3 +35,4 @@ storage/*
 Test.php
 .serverless/*
 .env.*
+.phpunit.cache/test-results

@@ -234,6 +234,7 @@ class MainSeeds extends AbstractSeed
             'type' => Entry::incoming->value,
             'workspace_id' => 1,
             'account_id' => 1,
+            'amount' => 1000,
         ]);
 
     }
