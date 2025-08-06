@@ -68,8 +68,6 @@
         "logtail/monolog-logtail": "^3.1",
         "budgetcontrol/mailer": "^v0.2",
         "budgetcontrol/library": "^v1.1",
-        "budgetcontrol/schema-registry-service": "v1.0-beta",
-        "budgetcontrol/seeds": "^v0.1",
         "budgetcontrol/cryptable": "^v0.1"
     },
     "require-dev": {
@@ -77,7 +75,9 @@
         "phpunit/phpunit": "^11.0",
         "fakerphp/faker": "^1.23",
         "mlabfactory/phpunit-self-api-integration": "v1.1.1-beta",
-        "mockery/mockery": "^1.6"
+        "mockery/mockery": "^1.6",
+        "budgetcontrol/schema-registry-service": "^v1.2",
+        "budgetcontrol/seeds": "^0.2"
     },
     "autoload": {
         "psr-4": {

@@ -84,7 +84,6 @@ class AuthController
             throw new NotFoundException("User not found", 404);
         }
 
-        $user = User::find($userId);
         $workspace = $repository->workspaces($userId);
 
         $active = '';
@@ -218,7 +217,7 @@ class AuthController
     public function userInfoByEmail(Request $request, Response $response, array $args)
     {
         $email = $args['email'];
-        $user = User::where('email', $email)->first();
+        $user = User::where('email', Crypt::encrypt($email))->first();
         if (!$user) {
             throw new AuthException('User not found', 404);
         }

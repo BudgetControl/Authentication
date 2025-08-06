@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3b0c24056355365863d3a3e211b68375",
+    "content-hash": "f6037eec53fb3e0d6d95d8c08d95b739",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -262,16 +262,16 @@
         },
         {
             "name": "budgetcontrol/library",
-            "version": "v1.1.0",
+            "version": "1.4.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/BudgetControl/Library.git",
-                "reference": "61a00116bbeec8dff9cb9005d1c39ff3b60b3236"
+                "reference": "11876771c6c1fdc440afb4313e99a6aabbf37427"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/BudgetControl/Library/zipball/61a00116bbeec8dff9cb9005d1c39ff3b60b3236",
-                "reference": "61a00116bbeec8dff9cb9005d1c39ff3b60b3236",
+                "url": "https://api.github.com/repos/BudgetControl/Library/zipball/11876771c6c1fdc440afb4313e99a6aabbf37427",
+                "reference": "11876771c6c1fdc440afb4313e99a6aabbf37427",
                 "shasum": ""
             },
             "require": {
@@ -293,9 +293,9 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/BudgetControl/Library/tree/v1.1.0"
+                "source": "https://github.com/BudgetControl/Library/tree/1.4.7"
             },
-            "time": "2024-09-16T08:45:49+00:00"
+            "time": "2025-08-04T15:39:21+00:00"
         },
         {
             "name": "budgetcontrol/libs-connector",
@@ -391,79 +391,6 @@
                 "source": "https://github.com/BudgetControl/MailerService/tree/v0.2.2"
             },
             "time": "2024-09-27T15:15:46+00:00"
-        },
-        {
-            "name": "budgetcontrol/schema-registry-service",
-            "version": "v1.0-beta",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/BudgetControl/Schema-Registry-Service.git",
-                "reference": "01466280c3f20acec2167bee44562285e8e93751"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/BudgetControl/Schema-Registry-Service/zipball/01466280c3f20acec2167bee44562285e8e93751",
-                "reference": "01466280c3f20acec2167bee44562285e8e93751",
-                "shasum": ""
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Budgetcontrol\\Registry\\": "libs/"
-                }
-            },
-            "authors": [
-                {
-                    "name": "Marco De Felice",
-                    "email": "marco.defelice@mlabfactory.it"
-                }
-            ],
-            "description": "An API Schema Registry is a centralized service that manages and distributes database schema definitions",
-            "support": {
-                "source": "https://github.com/BudgetControl/Schema-Registry-Service/tree/v1.0-beta",
-                "issues": "https://github.com/BudgetControl/Schema-Registry-Service/issues"
-            },
-            "time": "2024-08-06T13:26:32+00:00"
-        },
-        {
-            "name": "budgetcontrol/seeds",
-            "version": "v0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/BudgetControl/SeedsTestLibs.git",
-                "reference": "7e8b654136388ca46a7cf324374c79855b96496a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/BudgetControl/SeedsTestLibs/zipball/7e8b654136388ca46a7cf324374c79855b96496a",
-                "reference": "7e8b654136388ca46a7cf324374c79855b96496a",
-                "shasum": ""
-            },
-            "require-dev": {
-                "budgetcontrol/library": "^1.0",
-                "ramsey/uuid": "^4.7"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Budgetcontrol\\Seeds\\": "src/"
-                }
-            },
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Marco De Felice",
-                    "email": "marco.defelice@mlabfactory.it"
-                }
-            ],
-            "description": "Seeds and migrations for unit test",
-            "support": {
-                "source": "https://github.com/BudgetControl/SeedsTestLibs/tree/v0.1",
-                "issues": "https://github.com/BudgetControl/SeedsTestLibs/issues"
-            },
-            "time": "2024-09-09T11:46:59+00:00"
         },
         {
             "name": "cakephp/chronos",
@@ -8069,6 +7996,81 @@
     ],
     "packages-dev": [
         {
+            "name": "budgetcontrol/schema-registry-service",
+            "version": "1.5.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/BudgetControl/Schema-Registry-Service.git",
+                "reference": "173af5df33c95f3c95f2126b627e71dc1c2bc4e4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/BudgetControl/Schema-Registry-Service/zipball/173af5df33c95f3c95f2126b627e71dc1c2bc4e4",
+                "reference": "173af5df33c95f3c95f2126b627e71dc1c2bc4e4",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Budgetcontrol\\Registry\\": "libs/"
+                }
+            },
+            "authors": [
+                {
+                    "name": "Marco De Felice",
+                    "email": "marco.defelice@mlabfactory.it"
+                }
+            ],
+            "description": "An API Schema Registry is a centralized service that manages and distributes database schema definitions",
+            "support": {
+                "source": "https://github.com/BudgetControl/Schema-Registry-Service/tree/1.5.1",
+                "issues": "https://github.com/BudgetControl/Schema-Registry-Service/issues"
+            },
+            "time": "2025-07-31T07:05:03+00:00"
+        },
+        {
+            "name": "budgetcontrol/seeds",
+            "version": "v0.2.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/BudgetControl/SeedsTestLibs.git",
+                "reference": "9492477582d47111e3f37c3dd07dc3e8bb542cac"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/BudgetControl/SeedsTestLibs/zipball/9492477582d47111e3f37c3dd07dc3e8bb542cac",
+                "reference": "9492477582d47111e3f37c3dd07dc3e8bb542cac",
+                "shasum": ""
+            },
+            "require": {
+                "budgetcontrol/library": "^1.2"
+            },
+            "require-dev": {
+                "ramsey/uuid": "^4.7"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Budgetcontrol\\Seeds\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marco De Felice",
+                    "email": "marco.defelice@mlabfactory.it"
+                }
+            ],
+            "description": "Seeds and migrations for unit test",
+            "support": {
+                "source": "https://github.com/BudgetControl/SeedsTestLibs/tree/v0.2.2",
+                "issues": "https://github.com/BudgetControl/SeedsTestLibs/issues"
+            },
+            "time": "2024-10-15T06:20:40+00:00"
+        },
+        {
             "name": "fakerphp/faker",
             "version": "v1.23.1",
             "source": {
@@ -9946,7 +9948,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "budgetcontrol/schema-registry-service": 10,
         "mlabfactory/phpunit-self-api-integration": 10
     },
     "prefer-stable": true,

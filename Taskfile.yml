@@ -1,0 +1,19 @@
+version: '3'
+dotenv:
+  - ".env"
+tasks:
+  build:
+  build:dev:
+    desc: Build production enviroment
+    cmds:
+      - docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d
+      - docker container cp bin/apache/default.conf budgetcontrol-ms-authentication:/etc/apache2/sites-available/budgetcontrol.cloud.conf
+      - docker container exec budgetcontrol-ms-authentication service apache2 restart
+  test:prepare:
+      desc: Prepare test enviroment
+      cmds:
+        - docker container exec budgetcontrol-ms-authentication bash -c "vendor/bin/phinx rollback -t0 && vendor/bin/phinx migrate && vendor/bin/phinx seed:run"
+  test:run:
+    desc: Run tests
+    cmds:
+      - docker container exec budgetcontrol-ms-authentication bash -c "vendor/bin/phpunit --testdox --colors=always test"
