@@ -12,7 +12,7 @@
             "uuid": "4373a9a3-a482-4d5a-b8fe-c0572be7efe3",
             "name": "test",
             "description": "test",
-            "current": 0,
+            "current": false,
             "user_id": 2,
             "workspace_id": 2
         }
