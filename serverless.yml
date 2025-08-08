@@ -53,6 +53,7 @@ provider:
     CACHE_DRIVER: ${env:CACHE_DRIVER}
     DYNAMODB_CACHE_TABLE: ${env:DYNAMODB_CACHE_TABLE}
     DYNAMODB_CACHE_KEY: ${env:DYNAMODB_CACHE_KEY}
+    SECRET_KEY: ${env:SECRET_KEY}
   region: eu-west-1
   runtime: provided.al2
   deploymentBucket:
