@@ -16,7 +16,6 @@ try {
     $dotenv->load();
 } catch (\Dotenv\Exception\InvalidPathException $e) {
     // Handle the exception if the path is invalid
-    echo 'Environment file not found we will use system env: ' . $e->getMessage();
 }
 
 

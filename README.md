@@ -40,3 +40,6 @@ Contributions are welcome! Please read our [Contribution Guidelines](CONTRIBUTIN
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
+
+### Endpoint
+PROD: https://ely2uvr6d7.execute-api.eu-west-1.amazonaws.com

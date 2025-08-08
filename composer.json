@@ -77,7 +77,8 @@
         "mlabfactory/phpunit-self-api-integration": "v1.1.1-beta",
         "mockery/mockery": "^1.6",
         "budgetcontrol/schema-registry-service": "^v1.2",
-        "budgetcontrol/seeds": "^0.2"
+        "budgetcontrol/seeds": "^0.2",
+        "bref/bref": "2.4.1"
     },
     "autoload": {
         "psr-4": {
