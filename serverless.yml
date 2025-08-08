@@ -1,9 +1,59 @@
 service: budgetcontrol-ms-authentication
 provider:
   name: aws
+  iamRoleStatements:
+  - Effect: Allow
+    Action:
+      - cognito-idp:AdminCreateUser
+      - cognito-idp:AdminGetUser
+      - cognito-idp:AdminInitiateAuth
+      - cognito-idp:AdminRespondToAuthChallenge
+      - cognito-idp:ListUsers
+      - cognito-idp:SignUp
+      - cognito-idp:ConfirmSignUp
+      - cognito-idp:InitiateAuth
+      - cognito-idp:RespondToAuthChallenge
+    Resource: arn:aws:cognito-idp:eu-west-1:037846018289:userpool/eu-west-1_gQpd3Ahma
+  - Effect: Allow
+    Action:
+        - dynamodb:PutItem
+        - dynamodb:GetItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+        - dynamodb:Query
+        - dynamodb:Scan
+    Resource: arn:aws:dynamodb:eu-west-1:037846018289:table/BudgetControlCaching_table
   environment:
     BREF_FPM_TIMEOUT: 10000
     APP_ENV: dev
+    APP_KEY: ${env:APP_KEY}
+    APP_URL: ${env:APP_URL}
+    APP_NAME: ${env:APP_NAME}
+    DB_CONNECTION: ${env:DB_CONNECTION}
+    DB_HOST: ${env:DB_HOST}
+    DB_DATABASE: ${env:DB_DATABASE}
+    DB_USERNAME: ${env:DB_USERNAME}
+    DB_PASSWORD: ${env:DB_PASSWORD}
+    MAIL_DRIVER: ${env:MAIL_DRIVER}
+    MAIL_HOST: ${env:MAIL_HOST}
+    MAIL_USER: ${env:MAIL_USER}
+    MAIL_PASSWORD: ${env:MAIL_PASSWORD}
+    MAIL_FROM_ADDRESS: ${env:MAIL_FROM_ADDRESS}
+    AWS_COGNITO_CLIENT_ID: ${env:AWS_COGNITO_CLIENT_ID}
+    AWS_COGNITO_CLIENT_SECRET: ${env:AWS_COGNITO_CLIENT_SECRET}
+    AWS_COGNITO_USER_POOL_ID: ${env:AWS_COGNITO_USER_POOL_ID}
+    AWS_COGNITO_REGION: ${env:AWS_COGNITO_REGION}
+    AWS_COGNITO_VERSION: ${env:AWS_COGNITO_VERSION}
+    COGNITO_GOOGLE_AUTH_URL: ${env:COGNITO_GOOGLE_AUTH_URL}
+    COGNITO_GOOGLE_CLIENT_ID: ${env:COGNITO_GOOGLE_CLIENT_ID}
+    AWS_COGNITO_REDIRECT_URI: ${env:AWS_COGNITO_REDIRECT_URI}
+    AWS_COGNITO_REDIRECT_DEEPLINK: ${env:AWS_COGNITO_REDIRECT_DEEPLINK}
+    APP_LOG_LEVEL: ${env:APP_LOG_LEVEL}
+    LOG_CHANNEL: ${env:LOG_CHANNEL}
+    CACHE_DRIVER: ${env:CACHE_DRIVER}
+    DYNAMODB_CACHE_TABLE: ${env:DYNAMODB_CACHE_TABLE}
+    DYNAMODB_CACHE_KEY: ${env:DYNAMODB_CACHE_KEY}
+    SECRET_KEY: ${env:SECRET_KEY}
   region: eu-west-1
   runtime: provided.al2
   deploymentBucket:
@@ -25,6 +75,7 @@ package:
     - 'tests/**'
     - 'storage/logs/**'
     - '.env.*'
+    - '.env'
   include:
     - 'public/**'
     - 'vendor/**'
