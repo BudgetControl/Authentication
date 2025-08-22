@@ -84,6 +84,29 @@ class AuthController
             throw new NotFoundException("User not found", 404);
         }
 
+        // Gestione della chiave di crittografia
+        $encryptKeyRedisKey = "user:{$user->uuid}:encrypt_key";
+        $encryptKey = Cache::get($encryptKeyRedisKey);
+        
+        if (!$encryptKey) {
+            // Genera una nuova chiave se non esiste
+            $encryptKey = bin2hex(random_bytes(32));
+            
+            // Salva in Redis con TTL di 30 giorni
+            Cache::put($encryptKeyRedisKey, $encryptKey, Carbon::now()->addDays(30));
+            
+            // Salva come custom attribute in Cognito
+            try {
+                $cognitoService = new \Budgetcontrol\Authentication\Service\AwsCognitoService();
+                $cognitoService->updateUserAttributes($decodedIdToken['email'], [
+                    'custom:encrypt_key' => $encryptKey
+                ]);
+            } catch (\Exception $e) {
+                Log::error('Error saving encrypt key to Cognito: ' . $e->getMessage());
+                // Continua comunque, la chiave è già in Redis
+            }
+        }
+
         $workspace = $repository->workspaces($userId);
 
         $active = '';
