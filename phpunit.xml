@@ -20,6 +20,9 @@
         <env name="APP_KEY" value="testing" />
         <env name="AWS_COGNITO_REDIRECT_URI" value="AWS_COGNITO_REDIRECT_URI" />
         <env name="AWS_COGNITO_REDIRECT_DEEPLINK" value="AWS_COGNITO_REDIRECT_DEEPLINK" />
+        <env name="AWS_COGNITO_ACCESS_KEY_ID" value="ExaMPle" />
+        <env name="AWS_COGNITO_SECRET_ACCESS_KEY" value="EXAMPLEKEY" />
+        <env name="AWS_COGNITO_USER_POOL_ID" value="us-east-1_ExaMPle" />
     </php>
 
 </phpunit>
