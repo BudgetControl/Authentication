@@ -90,8 +90,13 @@ class AuthController
         try {
             $cognitoService = new \Budgetcontrol\Authentication\Service\AwsCognitoService();
             $userAttributes = $cognitoService->getUserAttributes($decodedIdToken['email']);
-            $encryptKey = $userAttributes[Definitions::COGNITO_ATTRIBUTE_ENCRYPTED_KEY] ?? null;
-        } catch (\Exception $e) {
+            $encryptKey = $userAttributes[Definitions::COGNITO_ATTRIBUTE_ENCRYPTED_KEY];
+            //now save key in cache
+            if($encryptKey) {
+                Cache::put($decodedIdToken['sub'] . 'encrypt_key', Crypt::encrypt($encryptKey), Carbon::now()->addDays(1));
+            }
+
+        } catch (\Throwable $e) {
             Log::error('Error retrieving user attributes from Cognito: ' . $e->getMessage());
             return response(['message' => 'Error retrieving user attributes'], 401);
         }
@@ -124,8 +129,7 @@ class AuthController
             ['current_ws' =>  $active],
             ['workspace_settings' => $workspaceSettings],
             ['shared_with' => $sharedWith],
-            ['username' => $username],
-            ['encrypt_key' => $encryptKey]
+            ['username' => $username]
         );
         // save in cache
         Cache::put($decodedToken['sub'] . 'user_info', $result, Carbon::now()->addDays(1));
