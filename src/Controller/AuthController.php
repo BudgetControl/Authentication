@@ -93,7 +93,8 @@ class AuthController
             $encryptKey = $userAttributes[Definitions::COGNITO_ATTRIBUTE_ENCRYPTED_KEY];
             //now save key in cache
             if($encryptKey) {
-                Cache::put($decodedIdToken['sub'] . 'encrypt_key', Crypt::encrypt($encryptKey), Carbon::now()->addDays(1));
+                $key = md5($decodedIdToken . 'encrypt_key');
+                Cache::put($key, $encryptKey, Carbon::now()->addDays(1));
             }
 
         } catch (\Throwable $e) {
