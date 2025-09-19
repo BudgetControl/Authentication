@@ -3,18 +3,19 @@
 namespace Budgetcontrol\Authentication\Controller;
 
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Log;
+use Budgetcontrol\Library\Model\User;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
+use Budgetcontrol\Authentication\Facade\Crypt;
 use Budgetcontrol\Authentication\Traits\AuthFlow;
+use League\Container\Exception\NotFoundException;
 use Psr\Http\Message\ResponseInterface as Response;
-use Budgetcontrol\Library\Model\User;
-use Budgetcontrol\Authentication\Domain\Repository\AuthRepository;
+use Budgetcontrol\Authentication\Domain\Definitions;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Budgetcontrol\Authentication\Exception\AuthException;
 use Budgetcontrol\Authentication\Facade\AwsCognitoClient;
-use League\Container\Exception\NotFoundException;
-use Budgetcontrol\Authentication\Facade\Crypt;
-use Illuminate\Support\Facades\Log;
+use Budgetcontrol\Authentication\Domain\Repository\AuthRepository;
 
 class AuthController
 {
@@ -67,7 +68,7 @@ class AuthController
         $authToken = str_replace('Bearer ', '', $authToken);
         $decodedToken = AwsCognitoClient::decodeAccessToken($authToken);
 
-        \Illuminate\Support\Facades\Log::debug('Decoded token: ' . json_encode($decodedToken));
+        Log::debug('Decoded token: ' . json_encode($decodedToken));
 
         $idToken = Cache::get($decodedToken['sub'] . 'id_token');
         $username = $decodedToken['username'];
@@ -84,27 +85,15 @@ class AuthController
             throw new NotFoundException("User not found", 404);
         }
 
-        // Gestione della chiave di crittografia
-        $encryptKeyRedisKey = "user:{$user->uuid}:encrypt_key";
-        $encryptKey = Cache::get($encryptKeyRedisKey);
-        
-        if (!$encryptKey) {
-            // Genera una nuova chiave se non esiste
-            $encryptKey = bin2hex(random_bytes(32));
-            
-            // Salva in Redis con TTL di 30 giorni
-            Cache::put($encryptKeyRedisKey, $encryptKey, Carbon::now()->addDays(30));
-            
-            // Salva come custom attribute in Cognito
-            try {
-                $cognitoService = new \Budgetcontrol\Authentication\Service\AwsCognitoService();
-                $cognitoService->updateUserAttributes($decodedIdToken['email'], [
-                    'custom:encrypt_key' => $encryptKey
-                ]);
-            } catch (\Exception $e) {
-                Log::error('Error saving encrypt key to Cognito: ' . $e->getMessage());
-                // Continua comunque, la chiave è già in Redis
-            }
+        // First we need to get encryption key from cognito custom attribute
+        $encryptKey = null;
+        try {
+            $cognitoService = new \Budgetcontrol\Authentication\Service\AwsCognitoService();
+            $userAttributes = $cognitoService->getUserAttributes($decodedIdToken['email']);
+            $encryptKey = $userAttributes[Definitions::COGNITO_ATTRIBUTE_ENCRYPTED_KEY] ?? null;
+        } catch (\Exception $e) {
+            Log::error('Error retrieving user attributes from Cognito: ' . $e->getMessage());
+            return response(['message' => 'Error retrieving user attributes'], 401);
         }
 
         $workspace = $repository->workspaces($userId);
@@ -135,11 +124,11 @@ class AuthController
             ['current_ws' =>  $active],
             ['workspace_settings' => $workspaceSettings],
             ['shared_with' => $sharedWith],
-            ['username' => $username]
+            ['username' => $username],
+            ['encrypt_key' => $encryptKey]
         );
         // save in cache
         Cache::put($decodedToken['sub'] . 'user_info', $result, Carbon::now()->addDays(1));
-
         return response($result, 200);
     }
 

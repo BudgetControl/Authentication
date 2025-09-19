@@ -2,8 +2,10 @@
 
 namespace Budgetcontrol\Authentication\Traits;
 
-    use Illuminate\Support\Facades\Log;
+    use Faker\Core\Uuid;
+use Illuminate\Support\Facades\Log;
 use Budgetcontrol\Authentication\Facade\AwsCognitoClient;
+use Budgetcontrol\Authentication\Domain\Definitions;
 
 trait RegistersUsers
 {
@@ -22,8 +24,8 @@ trait RegistersUsers
      * Handle a registration request for the application.
      *
      * @param  \Illuminate\Support\Collection $request
-     * @return \Illuminate\Http\Response
-     * @throws InvalidUserFieldException
+     * @return array
+     * @throws \Budgetcontrol\Authentication\Exception\InvalidUserFieldException
      */
     public function createCognitoUser(\Illuminate\Support\Collection $request, array $clientMetadata=null, string $groupname=null)
     {
@@ -50,10 +52,14 @@ trait RegistersUsers
             } //End if
         } //Loop ends
 
-        return AwsCognitoClient::createUser($username, $password, $password, [
-            'email' => $email,
-            'email_verified' => 'true',
-        ]);
+        // create encryption key
+        $attributes = [
+            Definitions::COGNITO_ATTRIBUTE_EMAIL => $email,
+            Definitions::COGNITO_ATTRIBUTE_ENCRYPTED_KEY => generate_secret(),
+            Definitions::COGNITO_ATTRIBUTE_EMAIL_VERIFIED => "true",
+        ];
+
+        return AwsCognitoClient::createUser($username, $email, $password, $attributes);
     }
 
 } 
