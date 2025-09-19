@@ -3,18 +3,19 @@
 namespace Budgetcontrol\Authentication\Controller;
 
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Log;
+use Budgetcontrol\Library\Model\User;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
+use Budgetcontrol\Authentication\Facade\Crypt;
 use Budgetcontrol\Authentication\Traits\AuthFlow;
+use League\Container\Exception\NotFoundException;
 use Psr\Http\Message\ResponseInterface as Response;
-use Budgetcontrol\Library\Model\User;
-use Budgetcontrol\Authentication\Domain\Repository\AuthRepository;
+use Budgetcontrol\Authentication\Domain\Definitions;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Budgetcontrol\Authentication\Exception\AuthException;
 use Budgetcontrol\Authentication\Facade\AwsCognitoClient;
-use League\Container\Exception\NotFoundException;
-use Budgetcontrol\Authentication\Facade\Crypt;
-use Illuminate\Support\Facades\Log;
+use Budgetcontrol\Authentication\Domain\Repository\AuthRepository;
 
 class AuthController
 {
@@ -67,7 +68,7 @@ class AuthController
         $authToken = str_replace('Bearer ', '', $authToken);
         $decodedToken = AwsCognitoClient::decodeAccessToken($authToken);
 
-        \Illuminate\Support\Facades\Log::debug('Decoded token: ' . json_encode($decodedToken));
+        Log::debug('Decoded token: ' . json_encode($decodedToken));
 
         $idToken = Cache::get($decodedToken['sub'] . 'id_token');
         $username = $decodedToken['username'];
@@ -82,6 +83,23 @@ class AuthController
 
         if (is_null($userId)) {
             throw new NotFoundException("User not found", 404);
+        }
+
+        // First we need to get encryption key from cognito custom attribute
+        $encryptKey = null;
+        try {
+            $cognitoService = new \Budgetcontrol\Authentication\Service\AwsCognitoService();
+            $userAttributes = $cognitoService->getUserAttributes($decodedIdToken['email']);
+            $encryptKey = $userAttributes[Definitions::COGNITO_ATTRIBUTE_ENCRYPTED_KEY];
+            //now save key in cache
+            if($encryptKey) {
+                $key = md5($decodedIdToken . 'encrypt_key');
+                Cache::put($key, $encryptKey, Carbon::now()->addDays(1));
+            }
+
+        } catch (\Throwable $e) {
+            Log::error('Error retrieving user attributes from Cognito: ' . $e->getMessage());
+            return response(['message' => 'Error retrieving user attributes'], 401);
         }
 
         $workspace = $repository->workspaces($userId);
@@ -116,7 +134,6 @@ class AuthController
         );
         // save in cache
         Cache::put($decodedToken['sub'] . 'user_info', $result, Carbon::now()->addDays(1));
-
         return response($result, 200);
     }
 

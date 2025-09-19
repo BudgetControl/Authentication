@@ -64,3 +64,17 @@ if (!function_exists('generateRandomPassword')) {
         return $password;
     }
 }
+
+if (!function_exists('generate_secret')) {
+    function generate_secret(int $length = 43): string
+    {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $string = '';
+        
+        for ($i = 0; $i < $length; $i++) {
+            $string .= $characters[random_int(0, strlen($characters) - 1)];
+        }
+        
+        return $string;
+    }
+}

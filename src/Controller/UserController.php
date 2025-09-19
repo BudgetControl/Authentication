@@ -4,6 +4,7 @@ namespace Budgetcontrol\Authentication\Controller;
 use Budgetcontrol\Library\Model\User;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use Budgetcontrol\Authentication\Service\AwsCognitoService;
 
 class UserController extends Controller {
 
